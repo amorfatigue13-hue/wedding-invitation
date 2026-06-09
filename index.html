@@ -6,119 +6,221 @@
 <title>현서 ♥ 지은</title>
 
 <style>
-body{
-    margin:0;
-    height:100vh;
-    background:#f5f5f5;
-    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
+* {
+    box-sizing: border-box;
 }
 
-.phone{
-    width:390px;
-    height:844px;
-    background:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200');
-    background-size:cover;
-    background-position:center;
-    border-radius:40px;
-    overflow:hidden;
-    position:relative;
+body {
+    margin: 0;
+    background: #111;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:30px;
-    padding:80px 30px;
+.container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
 }
 
-.icon{
-    text-align:center;
-    color:white;
+.screen {
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
 }
 
-.app{
-    width:70px;
-    height:70px;
-    background:rgba(255,255,255,0.85);
-    border-radius:18px;
-    margin:auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:32px;
+.lock {
+    background: url('lock.jpg') center/cover no-repeat;
 }
 
-.label{
-    margin-top:8px;
-    font-size:14px;
+.home {
+    background: url('home.jpg') center/cover no-repeat;
 }
 
-.dock{
-    position:absolute;
-    bottom:20px;
-    left:20px;
-    right:20px;
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+}
 
-    background:rgba(255,255,255,0.25);
-    backdrop-filter:blur(10px);
+.lock-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding-top: 80px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
 
-    border-radius:25px;
+.time {
+    font-size: 74px;
+    font-weight: 300;
+    line-height: 1;
+}
 
-    display:flex;
-    justify-content:space-around;
+.date {
+    margin-top: 12px;
+    font-size: 19px;
+}
 
-    padding:15px;
+.swipe-text {
+    position: absolute;
+    bottom: 42px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    z-index: 2;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+.home-content {
+    position: relative;
+    z-index: 2;
+    padding: 70px 28px 110px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 22px;
+}
+
+.icon {
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.45);
+}
+
+.app {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+}
+
+.app.heart { background: linear-gradient(135deg,#ffd6dc,#ff8fa3); }
+.app.map { background: linear-gradient(135deg,#b9fbc0,#98c1d9); }
+.app.gallery { background: linear-gradient(135deg,#fff,#ffd6a5); }
+.app.mail { background: linear-gradient(135deg,#70d6ff,#007aff); }
+.app.money { background: linear-gradient(135deg,#ff80ab,#c2185b); }
+.app.dress { background: linear-gradient(135deg,#ffd6a5,#ffb86b); }
+
+.label {
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.dock {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 24px;
+    height: 92px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.28);
+    backdrop-filter: blur(18px);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 3;
+}
+
+.dock .app {
+    width: 62px;
+    height: 62px;
+    font-size: 30px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="phone">
+<div class="container">
 
-    <div class="grid">
+    <section class="screen lock">
+        <div class="overlay"></div>
 
-        <div class="icon">
-            <div class="app">❤️</div>
-            <div class="label">우리 이야기</div>
+        <div class="lock-content">
+            <div class="time" id="time">12:00</div>
+            <div class="date" id="date">6월 10일 수요일</div>
         </div>
 
-        <div class="icon">
-            <div class="app">📍</div>
-            <div class="label">오시는 길</div>
+        <div class="swipe-text">위로 밀어 청첩장 열기</div>
+    </section>
+
+    <section class="screen home">
+        <div class="overlay"></div>
+
+        <div class="home-content">
+            <div class="grid">
+
+                <div class="icon">
+                    <div class="app heart">♥</div>
+                    <div class="label">우리 이야기</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app map">🗺️</div>
+                    <div class="label">오시는 길</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app gallery">🌸</div>
+                    <div class="label">갤러리</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app mail">✉️</div>
+                    <div class="label">참석 여부</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app money">🏛️</div>
+                    <div class="label">축의금</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app dress">👕</div>
+                    <div class="label">드레스 코드</div>
+                </div>
+
+            </div>
         </div>
 
-        <div class="icon">
-            <div class="app">📸</div>
-            <div class="label">갤러리</div>
+        <div class="dock">
+            <div class="app heart">♥</div>
+            <div class="app map">🗺️</div>
+            <div class="app gallery">🌸</div>
+            <div class="app mail">✉️</div>
         </div>
-
-        <div class="icon">
-            <div class="app">✉️</div>
-            <div class="label">참석 여부</div>
-        </div>
-
-        <div class="icon">
-            <div class="app">💳</div>
-            <div class="label">축의금</div>
-        </div>
-
-        <div class="icon">
-            <div class="app">👗</div>
-            <div class="label">드레스 코드</div>
-        </div>
-
-    </div>
-
-    <div class="dock">
-        ❤️ 📍 📸 ✉️
-    </div>
+    </section>
 
 </div>
+
+<script>
+function updateTime() {
+    const now = new Date();
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+
+    const days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+
+    document.getElementById('time').textContent = hours + ':' + minutes;
+    document.getElementById('date').textContent =
+        `${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}`;
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+</script>
 
 </body>
 </html>
