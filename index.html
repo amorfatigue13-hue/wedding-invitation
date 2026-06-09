@@ -144,7 +144,7 @@ html, body {
 .home-content {
     position: relative;
     z-index: 3;
-    padding: 62px 24px 122px;
+    padding: 64px 24px 122px;
 }
 
 .grid {
@@ -159,21 +159,6 @@ html, body {
     text-shadow: 0 2px 7px rgba(0,0,0,0.55);
 }
 
-.app {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto;
-    border-radius: 17px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 31px;
-    box-shadow:
-        0 8px 18px rgba(0,0,0,0.22),
-        inset 0 1px 1px rgba(255,255,255,0.35);
-    overflow: hidden;
-}
-
 .label {
     margin-top: 7px;
     font-size: 12px;
@@ -182,37 +167,357 @@ html, body {
     white-space: nowrap;
 }
 
-.app.story {
-    background: linear-gradient(145deg,#ffe1e8,#ff8aa4 55%,#ff4f77);
+/* 공통 앱 아이콘 */
+
+.app {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    border-radius: 22%;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+        0 8px 18px rgba(0,0,0,0.24),
+        inset 0 1px 1px rgba(255,255,255,0.30),
+        inset 0 -1px 2px rgba(0,0,0,0.18);
 }
 
-.app.map {
-    background: linear-gradient(145deg,#e8fff0,#7bd88f 35%,#4da3ff 75%);
+.app::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.28);
+    pointer-events: none;
 }
 
-.app.gallery {
-    background: linear-gradient(145deg,#ffffff,#ffe7a8 45%,#ffb6d5);
+/* 1. 우리 이야기 - iOS 건강 앱 느낌 */
+
+.app-health {
+    background: #fdfdfd;
 }
 
-.app.rsvp {
-    background: linear-gradient(145deg,#7ee8ff,#007aff);
+.health-heart {
+    position: absolute;
+    left: 50%;
+    top: 51%;
+    width: 28px;
+    height: 28px;
+    background: #ff2d55;
+    transform: translate(-50%, -50%) rotate(45deg);
+    border-radius: 6px;
 }
 
-.app.money {
-    background: linear-gradient(145deg,#ff6aa2,#cf155f);
+.health-heart::before,
+.health-heart::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background: #ff2d55;
+    border-radius: 50%;
 }
 
-.app.dress {
-    background: linear-gradient(145deg,#ffd89f,#ff9f43);
+.health-heart::before {
+    left: -14px;
+    top: 0;
 }
 
-.app.guestbook {
-    background: linear-gradient(145deg,#63e6be,#12b886);
+.health-heart::after {
+    top: -14px;
+    left: 0;
 }
 
-.app.notice {
-    background: linear-gradient(145deg,#d0bfff,#845ef7);
+/* 2. 오시는 길 - iOS 지도 앱 느낌 */
+
+.app-map {
+    background: #f9f9f9;
 }
+
+.map-line {
+    position: absolute;
+    background: #ffffff;
+    opacity: 0.95;
+}
+
+.map-line.one {
+    width: 96px;
+    height: 15px;
+    left: -15px;
+    top: 10px;
+    transform: rotate(-18deg);
+    background: #ffd84d;
+}
+
+.map-line.two {
+    width: 95px;
+    height: 15px;
+    left: -14px;
+    top: 34px;
+    transform: rotate(22deg);
+    background: #4cd964;
+}
+
+.map-line.three {
+    width: 90px;
+    height: 15px;
+    left: -10px;
+    top: 51px;
+    transform: rotate(-15deg);
+    background: #5ac8fa;
+}
+
+.map-block {
+    position: absolute;
+    right: -5px;
+    bottom: -2px;
+    width: 38px;
+    height: 38px;
+    background: #ff3b30;
+    transform: rotate(38deg);
+    opacity: 0.92;
+}
+
+.map-arrow {
+    position: absolute;
+    left: 23px;
+    top: 17px;
+    width: 20px;
+    height: 28px;
+    background: #007aff;
+    clip-path: polygon(50% 0%, 100% 100%, 52% 74%, 0 100%);
+    transform: rotate(38deg);
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));
+}
+
+/* 3. 갤러리 - iOS 사진 앱 느낌 */
+
+.app-photos {
+    background: #ffffff;
+}
+
+.petals {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 46px;
+    height: 46px;
+    transform: translate(-50%, -50%);
+}
+
+.petal {
+    position: absolute;
+    left: 18px;
+    top: 2px;
+    width: 12px;
+    height: 22px;
+    border-radius: 12px;
+    transform-origin: 5px 21px;
+    opacity: 0.95;
+}
+
+.petal:nth-child(1) { background:#ff3b30; transform: rotate(0deg); }
+.petal:nth-child(2) { background:#ff9500; transform: rotate(45deg); }
+.petal:nth-child(3) { background:#ffcc00; transform: rotate(90deg); }
+.petal:nth-child(4) { background:#34c759; transform: rotate(135deg); }
+.petal:nth-child(5) { background:#5ac8fa; transform: rotate(180deg); }
+.petal:nth-child(6) { background:#007aff; transform: rotate(225deg); }
+.petal:nth-child(7) { background:#af52de; transform: rotate(270deg); }
+.petal:nth-child(8) { background:#ff2d55; transform: rotate(315deg); }
+
+/* 4. 참석 여부 - iOS 메일 앱 느낌 */
+
+.app-mail {
+    background: linear-gradient(180deg, #5fc9ff 0%, #007aff 100%);
+}
+
+.mail-envelope {
+    position: absolute;
+    left: 12px;
+    top: 19px;
+    width: 40px;
+    height: 27px;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.mail-envelope::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 40px;
+    height: 28px;
+    background:
+        linear-gradient(145deg, transparent 49%, #d7e2ef 50%, transparent 51%),
+        linear-gradient(215deg, transparent 49%, #d7e2ef 50%, transparent 51%);
+}
+
+/* 5. 축의금 - 분홍 은행 앱 느낌 */
+
+.app-money {
+    background: linear-gradient(180deg, #ff7eb3 0%, #ff2d75 100%);
+}
+
+.bank-roof {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 36px;
+    height: 12px;
+    background: white;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.bank-line {
+    position: absolute;
+    left: 12px;
+    top: 27px;
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: white;
+}
+
+.bank-column {
+    position: absolute;
+    top: 33px;
+    width: 5px;
+    height: 17px;
+    border-radius: 2px;
+    background: white;
+}
+
+.bank-column.c1 { left: 17px; }
+.bank-column.c2 { left: 29px; }
+.bank-column.c3 { left: 41px; }
+
+.bank-base {
+    position: absolute;
+    left: 12px;
+    top: 52px;
+    width: 40px;
+    height: 5px;
+    border-radius: 3px;
+    background: white;
+}
+
+/* 6. 드레스 코드 - 주황 티셔츠 앱 느낌 */
+
+.app-dress {
+    background: linear-gradient(180deg, #ffd166 0%, #ff9500 100%);
+}
+
+.shirt {
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    width: 34px;
+    height: 38px;
+    background: white;
+    border-radius: 5px 5px 8px 8px;
+    clip-path: polygon(
+        28% 0%,
+        40% 10%,
+        50% 14%,
+        60% 10%,
+        72% 0%,
+        100% 18%,
+        88% 35%,
+        75% 29%,
+        75% 100%,
+        25% 100%,
+        25% 29%,
+        12% 35%,
+        0% 18%
+    );
+}
+
+.shirt-neck {
+    position: absolute;
+    left: 27px;
+    top: 16px;
+    width: 10px;
+    height: 8px;
+    border-radius: 0 0 10px 10px;
+    background: #ffb13b;
+}
+
+/* 7. 방명록 - iOS 메시지 앱 느낌 */
+
+.app-message {
+    background: linear-gradient(180deg, #5ff07a 0%, #20c45a 100%);
+}
+
+.message-bubble {
+    position: absolute;
+    left: 11px;
+    top: 17px;
+    width: 42px;
+    height: 30px;
+    background: white;
+    border-radius: 18px;
+}
+
+.message-bubble::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    bottom: -4px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    transform: rotate(18deg);
+}
+
+/* 8. 안내사항 - 보라 반짝이 앱 느낌 */
+
+.app-notice {
+    background: linear-gradient(180deg, #c8a2ff 0%, #7b61ff 100%);
+}
+
+.sparkle-main {
+    position: absolute;
+    left: 22px;
+    top: 13px;
+    width: 20px;
+    height: 34px;
+    background: white;
+    clip-path: polygon(
+        50% 0%,
+        63% 36%,
+        100% 50%,
+        63% 64%,
+        50% 100%,
+        37% 64%,
+        0% 50%,
+        37% 36%
+    );
+}
+
+.sparkle-small {
+    position: absolute;
+    right: 13px;
+    bottom: 13px;
+    width: 13px;
+    height: 13px;
+    background: white;
+    clip-path: polygon(
+        50% 0%,
+        62% 38%,
+        100% 50%,
+        62% 62%,
+        50% 100%,
+        38% 62%,
+        0% 50%,
+        38% 38%
+    );
+}
+
+/* 독바 */
 
 .dock {
     position: absolute;
@@ -236,7 +541,6 @@ html, body {
 .dock .app {
     width: 62px;
     height: 62px;
-    font-size: 29px;
 }
 
 @media (min-width: 520px) {
@@ -261,6 +565,7 @@ html, body {
 
 <div class="container">
 
+    <!-- 잠금화면 -->
     <section class="screen lock">
         <div class="dim"></div>
 
@@ -294,6 +599,7 @@ html, body {
         </div>
     </section>
 
+    <!-- 홈화면 -->
     <section class="screen home">
         <div class="dim"></div>
 
@@ -301,42 +607,78 @@ html, body {
             <div class="grid">
 
                 <div class="icon">
-                    <div class="app story">♥</div>
+                    <div class="app app-health">
+                        <div class="health-heart"></div>
+                    </div>
                     <div class="label">우리 이야기</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app map">🗺️</div>
+                    <div class="app app-map">
+                        <div class="map-line one"></div>
+                        <div class="map-line two"></div>
+                        <div class="map-line three"></div>
+                        <div class="map-block"></div>
+                        <div class="map-arrow"></div>
+                    </div>
                     <div class="label">오시는 길</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app gallery">🌸</div>
+                    <div class="app app-photos">
+                        <div class="petals">
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                            <div class="petal"></div>
+                        </div>
+                    </div>
                     <div class="label">갤러리</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app rsvp">✉️</div>
+                    <div class="app app-mail">
+                        <div class="mail-envelope"></div>
+                    </div>
                     <div class="label">참석 여부</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app money">🏛️</div>
+                    <div class="app app-money">
+                        <div class="bank-roof"></div>
+                        <div class="bank-line"></div>
+                        <div class="bank-column c1"></div>
+                        <div class="bank-column c2"></div>
+                        <div class="bank-column c3"></div>
+                        <div class="bank-base"></div>
+                    </div>
                     <div class="label">축의금</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app dress">👕</div>
+                    <div class="app app-dress">
+                        <div class="shirt"></div>
+                        <div class="shirt-neck"></div>
+                    </div>
                     <div class="label">드레스 코드</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app guestbook">💬</div>
+                    <div class="app app-message">
+                        <div class="message-bubble"></div>
+                    </div>
                     <div class="label">방명록</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app notice">✨</div>
+                    <div class="app app-notice">
+                        <div class="sparkle-main"></div>
+                        <div class="sparkle-small"></div>
+                    </div>
                     <div class="label">안내사항</div>
                 </div>
 
@@ -344,10 +686,34 @@ html, body {
         </div>
 
         <div class="dock">
-            <div class="app story">♥</div>
-            <div class="app map">🗺️</div>
-            <div class="app gallery">🌸</div>
-            <div class="app rsvp">✉️</div>
+            <div class="app app-health">
+                <div class="health-heart"></div>
+            </div>
+
+            <div class="app app-map">
+                <div class="map-line one"></div>
+                <div class="map-line two"></div>
+                <div class="map-line three"></div>
+                <div class="map-block"></div>
+                <div class="map-arrow"></div>
+            </div>
+
+            <div class="app app-photos">
+                <div class="petals">
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                </div>
+            </div>
+
+            <div class="app app-mail">
+                <div class="mail-envelope"></div>
+            </div>
         </div>
 
     </section>
