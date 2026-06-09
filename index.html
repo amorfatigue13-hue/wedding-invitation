@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>현서 ♥ 지은</title>
+<title>현서 ♥ 지은 모바일 청첩장</title>
 
 <style>
 * {
     box-sizing: border-box;
 }
 
-body {
+html, body {
     margin: 0;
-    background: #111;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 0;
+    background: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
 }
 
 .container {
@@ -25,6 +26,7 @@ body {
 .screen {
     width: 100%;
     height: 100vh;
+    min-height: 100vh;
     scroll-snap-align: start;
     position: relative;
     overflow: hidden;
@@ -38,104 +40,229 @@ body {
     background: url('home.JPG') center/cover no-repeat;
 }
 
-.overlay {
+.dim {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.15);
+    background: rgba(0,0,0,0.18);
+}
+
+.status-bar {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    right: 0;
+    height: 26px;
+    padding: 0 28px;
+    z-index: 5;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+.status-icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
 }
 
 .lock-content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     color: white;
     text-align: center;
-    padding-top: 80px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    padding-top: 78px;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.45);
 }
 
-.time {
-    font-size: 74px;
+.lock-date {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+
+.lock-time {
+    font-size: 78px;
     font-weight: 300;
-    line-height: 1;
+    letter-spacing: -3px;
+    line-height: 0.95;
 }
 
-.date {
-    margin-top: 12px;
-    font-size: 19px;
+.lock-title {
+    margin-top: 18px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+}
+
+.lock-subtitle {
+    margin-top: 6px;
+    font-size: 14px;
+    opacity: 0.92;
+}
+
+.lock-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 32px;
+    z-index: 4;
+    padding: 0 38px;
+}
+
+.quick-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.quick-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(20,20,20,0.42);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 23px;
 }
 
 .swipe-text {
-    position: absolute;
-    bottom: 42px;
-    width: 100%;
     text-align: center;
     color: white;
-    font-size: 15px;
-    z-index: 2;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    font-size: 14px;
+    font-weight: 500;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+    opacity: 0.95;
+}
+
+.home-indicator {
+    width: 134px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.9);
+    margin: 13px auto 0;
 }
 
 .home-content {
     position: relative;
-    z-index: 2;
-    padding: 70px 28px 110px;
+    z-index: 3;
+    padding: 62px 24px 122px;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px 22px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px 12px;
 }
 
 .icon {
     text-align: center;
     color: white;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.45);
+    text-shadow: 0 2px 7px rgba(0,0,0,0.55);
 }
 
 .app {
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     margin: 0 auto;
-    border-radius: 20px;
+    border-radius: 17px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 34px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+    font-size: 31px;
+    box-shadow:
+        0 8px 18px rgba(0,0,0,0.22),
+        inset 0 1px 1px rgba(255,255,255,0.35);
+    overflow: hidden;
 }
 
-.app.heart { background: linear-gradient(135deg,#ffd6dc,#ff8fa3); }
-.app.map { background: linear-gradient(135deg,#b9fbc0,#98c1d9); }
-.app.gallery { background: linear-gradient(135deg,#fff,#ffd6a5); }
-.app.mail { background: linear-gradient(135deg,#70d6ff,#007aff); }
-.app.money { background: linear-gradient(135deg,#ff80ab,#c2185b); }
-.app.dress { background: linear-gradient(135deg,#ffd6a5,#ffb86b); }
-
 .label {
-    margin-top: 8px;
-    font-size: 13px;
+    margin-top: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+}
+
+.app.story {
+    background: linear-gradient(145deg,#ffe1e8,#ff8aa4 55%,#ff4f77);
+}
+
+.app.map {
+    background: linear-gradient(145deg,#e8fff0,#7bd88f 35%,#4da3ff 75%);
+}
+
+.app.gallery {
+    background: linear-gradient(145deg,#ffffff,#ffe7a8 45%,#ffb6d5);
+}
+
+.app.rsvp {
+    background: linear-gradient(145deg,#7ee8ff,#007aff);
+}
+
+.app.money {
+    background: linear-gradient(145deg,#ff6aa2,#cf155f);
+}
+
+.app.dress {
+    background: linear-gradient(145deg,#ffd89f,#ff9f43);
+}
+
+.app.guestbook {
+    background: linear-gradient(145deg,#63e6be,#12b886);
+}
+
+.app.notice {
+    background: linear-gradient(145deg,#d0bfff,#845ef7);
 }
 
 .dock {
     position: absolute;
-    left: 18px;
-    right: 18px;
+    left: 16px;
+    right: 16px;
     bottom: 24px;
-    height: 92px;
+    height: 88px;
     border-radius: 30px;
-    background: rgba(255,255,255,0.28);
-    backdrop-filter: blur(18px);
+    background: rgba(255,255,255,0.26);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
     display: flex;
     align-items: center;
     justify-content: space-around;
-    z-index: 3;
+    z-index: 4;
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.18),
+        inset 0 1px 1px rgba(255,255,255,0.35);
 }
 
 .dock .app {
     width: 62px;
     height: 62px;
-    font-size: 30px;
+    font-size: 29px;
+}
+
+@media (min-width: 520px) {
+    .container {
+        width: 430px;
+        height: 932px;
+        margin: 20px auto;
+        border-radius: 46px;
+        overflow-y: scroll;
+        box-shadow: 0 0 0 10px #111, 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    .screen {
+        height: 932px;
+        min-height: 932px;
+    }
 }
 </style>
 </head>
@@ -145,24 +272,52 @@ body {
 <div class="container">
 
     <section class="screen lock">
-        <div class="overlay"></div>
+        <div class="dim"></div>
 
-        <div class="lock-content">
-            <div class="time" id="time">12:00</div>
-            <div class="date" id="date">6월 10일 수요일</div>
+        <div class="status-bar">
+            <div id="statusTime">12:00</div>
+            <div class="status-icons">
+                <span>●●●</span>
+                <span>Wi-Fi</span>
+                <span>🔋</span>
+            </div>
         </div>
 
-        <div class="swipe-text">위로 밀어 청첩장 열기</div>
+        <div class="lock-content">
+            <div class="lock-date" id="lockDate">6월 10일 수요일</div>
+            <div class="lock-time" id="lockTime">12:00</div>
+            <div class="lock-title">HYUNSEO & JIEUN</div>
+            <div class="lock-subtitle">Wedding Invitation</div>
+        </div>
+
+        <div class="lock-bottom">
+            <div class="quick-buttons">
+                <div class="quick-btn">🔦</div>
+                <div class="quick-btn">📷</div>
+            </div>
+
+            <div class="swipe-text">위로 밀어 청첩장 열기</div>
+            <div class="home-indicator"></div>
+        </div>
     </section>
 
     <section class="screen home">
-        <div class="overlay"></div>
+        <div class="dim"></div>
+
+        <div class="status-bar">
+            <div id="homeStatusTime">12:00</div>
+            <div class="status-icons">
+                <span>●●●</span>
+                <span>Wi-Fi</span>
+                <span>🔋</span>
+            </div>
+        </div>
 
         <div class="home-content">
             <div class="grid">
 
                 <div class="icon">
-                    <div class="app heart">♥</div>
+                    <div class="app story">♥</div>
                     <div class="label">우리 이야기</div>
                 </div>
 
@@ -177,7 +332,7 @@ body {
                 </div>
 
                 <div class="icon">
-                    <div class="app mail">✉️</div>
+                    <div class="app rsvp">✉️</div>
                     <div class="label">참석 여부</div>
                 </div>
 
@@ -191,15 +346,26 @@ body {
                     <div class="label">드레스 코드</div>
                 </div>
 
+                <div class="icon">
+                    <div class="app guestbook">💬</div>
+                    <div class="label">방명록</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app notice">✨</div>
+                    <div class="label">안내사항</div>
+                </div>
+
             </div>
         </div>
 
         <div class="dock">
-            <div class="app heart">♥</div>
+            <div class="app story">♥</div>
             <div class="app map">🗺️</div>
             <div class="app gallery">🌸</div>
-            <div class="app mail">✉️</div>
+            <div class="app rsvp">✉️</div>
         </div>
+
     </section>
 
 </div>
@@ -210,12 +376,15 @@ function updateTime() {
 
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
+    const timeText = hours + ':' + minutes;
 
     const days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+    const dateText = `${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}`;
 
-    document.getElementById('time').textContent = hours + ':' + minutes;
-    document.getElementById('date').textContent =
-        `${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}`;
+    document.getElementById('statusTime').textContent = timeText;
+    document.getElementById('homeStatusTime').textContent = timeText;
+    document.getElementById('lockTime').textContent = timeText;
+    document.getElementById('lockDate').textContent = dateText;
 }
 
 updateTime();
