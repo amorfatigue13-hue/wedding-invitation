@@ -589,6 +589,138 @@ html, body {
     line-height: 1.6;
 }
 
+/* 갤러리 앱 */
+
+.gallery-top {
+    margin-bottom: 26px;
+}
+
+.gallery-count {
+    font-size: 13px;
+    color: #aaa;
+    letter-spacing: 5px;
+    margin-bottom: 6px;
+}
+
+.gallery-title {
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: -2.2px;
+    line-height: 1;
+    color: #111;
+    margin-bottom: 28px;
+}
+
+.gallery-line {
+    width: 88px;
+    height: 2px;
+    background: #111;
+    margin-bottom: 28px;
+}
+
+.gallery-subtitle {
+    font-size: 18px;
+    color: #777;
+    letter-spacing: -0.4px;
+}
+
+.gallery-feed {
+    width: calc(100% + 44px);
+    margin-left: -22px;
+}
+
+.gallery-block {
+    margin-bottom: 2px;
+}
+
+.gallery-feature {
+    width: 100%;
+    height: 440px;
+    position: relative;
+    overflow: hidden;
+    background: #eee;
+    cursor: pointer;
+}
+
+.gallery-feature img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-caption {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.8px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 2px;
+}
+
+.gallery-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #eee;
+    cursor: pointer;
+}
+
+.gallery-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 사진 크게 보기 */
+
+.photo-viewer {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-viewer.active {
+    display: flex;
+}
+
+.photo-viewer img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.photo-viewer-close {
+    position: absolute;
+    top: 42px;
+    right: 22px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.22);
+    color: white;
+    font-size: 28px;
+    line-height: 34px;
+    cursor: pointer;
+}
+    
 /* 오시는 법 */
 
 .route-section {
@@ -913,13 +1045,102 @@ html, body {
         <h2>갤러리</h2>
         <button class="close-btn" onclick="closeApp('galleryApp')">×</button>
     </div>
+
     <div class="app-body">
-        <div class="app-card">
-            <h3>사진첩</h3>
-            <p>
-                웨딩 사진과 두 사람의 추억 사진이 들어갈 영역입니다.
-            </p>
+
+        <div class="gallery-top">
+            <div class="gallery-count">30 PHOTOS</div>
+            <div class="gallery-title">갤러리</div>
+            <div class="gallery-line"></div>
+            <div class="gallery-subtitle">소중한 순간들</div>
         </div>
+
+        <div class="gallery-feed">
+
+            <div class="gallery-block">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery1.JPG')">
+                    <img src="gallery/gallery1.jpg" alt="웨딩 갤러리 사진">
+                    <div class="gallery-caption">
+                        저희의 소중한 순간을<br>
+                        함께 나눕니다
+                    </div>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery2.JPG')"><img src="gallery/gallery2.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery3.JPG')"><img src="gallery/gallery3.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery4.JPG')"><img src="gallery/gallery4.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery5.JPG')"><img src="gallery/gallery5.JPG" alt="웨딩 갤러리 사진"></div>
+                </div>
+            </div>
+
+            <div class="gallery-block">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery6.JPG')">
+                    <img src="gallery/gallery6.jpg" alt="웨딩 갤러리 사진">
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery7.JPG')"><img src="gallery/gallery7.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery8.JPG')"><img src="gallery/gallery8.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery9.JPG')"><img src="gallery/gallery9.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery10.JPG')"><img src="gallery/gallery10.JPG" alt="웨딩 갤러리 사진"></div>
+                </div>
+            </div>
+
+            <div class="gallery-block">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery11.JPG')">
+                    <img src="gallery/gallery11.jpg" alt="웨딩 갤러리 사진">
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery12.JPG')"><img src="gallery/gallery12.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery13.JPG')"><img src="gallery/gallery13.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery14.JPG')"><img src="gallery/gallery14.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery15.JPG')"><img src="gallery/gallery15.JPG" alt="웨딩 갤러리 사진"></div>
+                </div>
+            </div>
+
+            <div class="gallery-block">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery16.JPG')">
+                    <img src="gallery/gallery16.jpg" alt="웨딩 갤러리 사진">
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery17.JPG')"><img src="gallery/gallery17.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery18.JPG')"><img src="gallery/gallery18.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery19.JPG')"><img src="gallery/gallery19.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery20.JPG')"><img src="gallery/gallery20.JPG" alt="웨딩 갤러리 사진"></div>
+                </div>
+            </div>
+
+            <div class="gallery-block">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery21.JPG')">
+                    <img src="gallery/gallery21.jpg" alt="웨딩 갤러리 사진">
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery22.JPG')"><img src="gallery/gallery22.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery23.JPG')"><img src="gallery/gallery23.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery24.JPG')"><img src="gallery/gallery24.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery25.JPG')"><img src="gallery/gallery25.JPG" alt="웨딩 갤러리 사진"></div>
+                </div>
+            </div>
+
+            <div class="gallery-block">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery26.JPG')">
+                    <img src="gallery/gallery26.jpg" alt="웨딩 갤러리 사진">
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery27.JPG')"><img src="gallery/gallery27.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery28.JPG')"><img src="gallery/gallery28.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery29.JPG')"><img src="gallery/gallery29.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery30.JPG')"><img src="gallery/gallery30.JPG" alt="웨딩 갤러리 사진"></div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>
 
@@ -1067,6 +1288,11 @@ html, body {
     </div>
 </div>
 
+    <div class="photo-viewer" id="photoViewer" onclick="closePhoto()">
+    <button class="photo-viewer-close" onclick="closePhoto()">×</button>
+    <img id="photoViewerImg" src="" alt="확대 사진">
+</div>
+
 <script>
 function updateTime() {
     const now = new Date();
@@ -1123,6 +1349,21 @@ function copyAccount(button, text) {
 }
     
 </script>
+function openPhoto(src) {
+    const viewer = document.getElementById('photoViewer');
+    const img = document.getElementById('photoViewerImg');
 
+    img.src = src;
+    viewer.classList.add('active');
+}
+
+function closePhoto() {
+    const viewer = document.getElementById('photoViewer');
+    const img = document.getElementById('photoViewerImg');
+
+    viewer.classList.remove('active');
+    img.src = '';
+}
+    
 </body>
 </html>
