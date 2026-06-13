@@ -739,6 +739,76 @@ body {
     display: block;
 }
 
+/* 방명록 앱 */
+
+.guestbook-intro {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.guestbook-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    color: #222;
+    margin-bottom: 16px;
+}
+
+.guestbook-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #555;
+    letter-spacing: -0.25px;
+}
+
+.guestbook-main-button {
+    display: block;
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0;
+    background: #261f1f;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 22px 0 16px;
+}
+
+.guestbook-note {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.guestbook-list-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: #222;
+    margin-bottom: 14px;
+}
+
+.guestbook-sheet-box {
+    width: 100%;
+    height: 520px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+}
+
+.guestbook-sheet-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: white;
+}
+    
 /* 데스크톱 미리보기 */
 
 @media (min-width: 520px) {
@@ -1244,19 +1314,41 @@ body {
 </div>
 
 <!-- 방명록 -->
-
 <div class="app-window" id="guestbookApp">
     <div class="app-header">
         <h2>방명록</h2>
         <button class="close-btn" onclick="closeApp('guestbookApp')">×</button>
     </div>
+
     <div class="app-body">
-        <div class="app-card">
-            <h3>축하 메시지</h3>
-            <p>
-                방명록 또는 축하 메시지 기능이 들어갈 영역입니다.
-            </p>
+
+        <div class="guestbook-intro">
+            <div class="guestbook-title">방명록</div>
+            <div class="guestbook-desc">
+                두 사람에게 전하고 싶은<br>
+                따뜻한 축하의 마음을 남겨주세요.
+            </div>
         </div>
+
+        <a class="guestbook-main-button"
+           href="https://docs.google.com/forms/d/e/1FAIpQLSeRCbfVRf1V-fT2HJeIghNwq4QexEA7z0VfUk3WLb0uupxlew/viewform?usp=header"
+           target="_blank">
+            축하 메시지 남기기
+        </a>
+
+        <div class="guestbook-note">
+            남겨주신 메시지는 아래 방명록에 순차적으로 남겨집니다.
+        </div>
+
+        <div class="guestbook-list-title">남겨진 마음들</div>
+
+        <div class="guestbook-sheet-box">
+            <iframe
+                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNWKxVhBE2FQvXFIbpj26n6NPwUWZi94Qewzhv-uftiUOfmn8NU-JPztV2UP6QSHqv0Mt0KW0cU0_0/pubhtml?widget=true&amp;headers=false"
+                frameborder="0">
+            </iframe>
+        </div>
+
     </div>
 </div>
 
