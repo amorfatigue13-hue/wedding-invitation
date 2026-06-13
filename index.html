@@ -167,7 +167,7 @@ html, body {
     white-space: nowrap;
 }
 
-/* 공통 앱 아이콘 */
+/* 실제 이미지 앱 아이콘 */
 
 .app {
     width: 64px;
@@ -177,6 +177,7 @@ html, body {
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    background: rgba(255,255,255,0.12);
     box-shadow:
         0 8px 18px rgba(0,0,0,0.24),
         inset 0 1px 1px rgba(255,255,255,0.30),
@@ -188,6 +189,13 @@ html, body {
     transform: scale(0.92);
 }
 
+.app img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
 .app::after {
     content: "";
     position: absolute;
@@ -195,331 +203,6 @@ html, body {
     border-radius: inherit;
     box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.28);
     pointer-events: none;
-}
-
-/* 우리 이야기 - 건강 앱 느낌 */
-
-.app-health {
-    background: #fdfdfd;
-}
-
-.health-heart {
-    position: absolute;
-    left: 50%;
-    top: 51%;
-    width: 28px;
-    height: 28px;
-    background: #ff2d55;
-    transform: translate(-50%, -50%) rotate(45deg);
-    border-radius: 6px;
-}
-
-.health-heart::before,
-.health-heart::after {
-    content: "";
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    background: #ff2d55;
-    border-radius: 50%;
-}
-
-.health-heart::before {
-    left: -14px;
-    top: 0;
-}
-
-.health-heart::after {
-    top: -14px;
-    left: 0;
-}
-
-/* 오시는 길 - 지도 앱 느낌 */
-
-.app-map {
-    background: #f9f9f9;
-}
-
-.map-line {
-    position: absolute;
-    opacity: 0.95;
-}
-
-.map-line.one {
-    width: 96px;
-    height: 15px;
-    left: -15px;
-    top: 10px;
-    transform: rotate(-18deg);
-    background: #ffd84d;
-}
-
-.map-line.two {
-    width: 95px;
-    height: 15px;
-    left: -14px;
-    top: 34px;
-    transform: rotate(22deg);
-    background: #4cd964;
-}
-
-.map-line.three {
-    width: 90px;
-    height: 15px;
-    left: -10px;
-    top: 51px;
-    transform: rotate(-15deg);
-    background: #5ac8fa;
-}
-
-.map-block {
-    position: absolute;
-    right: -5px;
-    bottom: -2px;
-    width: 38px;
-    height: 38px;
-    background: #ff3b30;
-    transform: rotate(38deg);
-    opacity: 0.92;
-}
-
-.map-arrow {
-    position: absolute;
-    left: 23px;
-    top: 17px;
-    width: 20px;
-    height: 28px;
-    background: #007aff;
-    clip-path: polygon(50% 0%, 100% 100%, 52% 74%, 0 100%);
-    transform: rotate(38deg);
-    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));
-}
-
-/* 갤러리 - 사진 앱 느낌 */
-
-.app-photos {
-    background: #ffffff;
-}
-
-.petals {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 46px;
-    height: 46px;
-    transform: translate(-50%, -50%);
-}
-
-.petal {
-    position: absolute;
-    left: 18px;
-    top: 2px;
-    width: 12px;
-    height: 22px;
-    border-radius: 12px;
-    transform-origin: 5px 21px;
-    opacity: 0.95;
-}
-
-.petal:nth-child(1) { background:#ff3b30; transform: rotate(0deg); }
-.petal:nth-child(2) { background:#ff9500; transform: rotate(45deg); }
-.petal:nth-child(3) { background:#ffcc00; transform: rotate(90deg); }
-.petal:nth-child(4) { background:#34c759; transform: rotate(135deg); }
-.petal:nth-child(5) { background:#5ac8fa; transform: rotate(180deg); }
-.petal:nth-child(6) { background:#007aff; transform: rotate(225deg); }
-.petal:nth-child(7) { background:#af52de; transform: rotate(270deg); }
-.petal:nth-child(8) { background:#ff2d55; transform: rotate(315deg); }
-
-/* 참석 여부 - 메일 앱 느낌 */
-
-.app-mail {
-    background: linear-gradient(180deg, #5fc9ff 0%, #007aff 100%);
-}
-
-.mail-envelope {
-    position: absolute;
-    left: 12px;
-    top: 19px;
-    width: 40px;
-    height: 27px;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-}
-
-.mail-envelope::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: -1px;
-    width: 40px;
-    height: 28px;
-    background:
-        linear-gradient(145deg, transparent 49%, #d7e2ef 50%, transparent 51%),
-        linear-gradient(215deg, transparent 49%, #d7e2ef 50%, transparent 51%);
-}
-
-/* 축의금 */
-
-.app-money {
-    background: linear-gradient(180deg, #ff7eb3 0%, #ff2d75 100%);
-}
-
-.bank-roof {
-    position: absolute;
-    left: 14px;
-    top: 14px;
-    width: 36px;
-    height: 12px;
-    background: white;
-    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-}
-
-.bank-line {
-    position: absolute;
-    left: 12px;
-    top: 27px;
-    width: 40px;
-    height: 4px;
-    border-radius: 2px;
-    background: white;
-}
-
-.bank-column {
-    position: absolute;
-    top: 33px;
-    width: 5px;
-    height: 17px;
-    border-radius: 2px;
-    background: white;
-}
-
-.bank-column.c1 { left: 17px; }
-.bank-column.c2 { left: 29px; }
-.bank-column.c3 { left: 41px; }
-
-.bank-base {
-    position: absolute;
-    left: 12px;
-    top: 52px;
-    width: 40px;
-    height: 5px;
-    border-radius: 3px;
-    background: white;
-}
-
-/* 드레스 코드 */
-
-.app-dress {
-    background: linear-gradient(180deg, #ffd166 0%, #ff9500 100%);
-}
-
-.shirt {
-    position: absolute;
-    left: 15px;
-    top: 14px;
-    width: 34px;
-    height: 38px;
-    background: white;
-    border-radius: 5px 5px 8px 8px;
-    clip-path: polygon(
-        28% 0%,
-        40% 10%,
-        50% 14%,
-        60% 10%,
-        72% 0%,
-        100% 18%,
-        88% 35%,
-        75% 29%,
-        75% 100%,
-        25% 100%,
-        25% 29%,
-        12% 35%,
-        0% 18%
-    );
-}
-
-.shirt-neck {
-    position: absolute;
-    left: 27px;
-    top: 16px;
-    width: 10px;
-    height: 8px;
-    border-radius: 0 0 10px 10px;
-    background: #ffb13b;
-}
-
-/* 방명록 - 메시지 앱 느낌 */
-
-.app-message {
-    background: linear-gradient(180deg, #5ff07a 0%, #20c45a 100%);
-}
-
-.message-bubble {
-    position: absolute;
-    left: 11px;
-    top: 17px;
-    width: 42px;
-    height: 30px;
-    background: white;
-    border-radius: 18px;
-}
-
-.message-bubble::after {
-    content: "";
-    position: absolute;
-    right: 5px;
-    bottom: -4px;
-    width: 12px;
-    height: 12px;
-    background: white;
-    clip-path: polygon(0 0, 100% 0, 100% 100%);
-    transform: rotate(18deg);
-}
-
-/* 안내사항 */
-
-.app-notice {
-    background: linear-gradient(180deg, #c8a2ff 0%, #7b61ff 100%);
-}
-
-.sparkle-main {
-    position: absolute;
-    left: 22px;
-    top: 13px;
-    width: 20px;
-    height: 34px;
-    background: white;
-    clip-path: polygon(
-        50% 0%,
-        63% 36%,
-        100% 50%,
-        63% 64%,
-        50% 100%,
-        37% 64%,
-        0% 50%,
-        37% 36%
-    );
-}
-
-.sparkle-small {
-    position: absolute;
-    right: 13px;
-    bottom: 13px;
-    width: 13px;
-    height: 13px;
-    background: white;
-    clip-path: polygon(
-        50% 0%,
-        62% 38%,
-        100% 50%,
-        62% 62%,
-        50% 100%,
-        38% 62%,
-        0% 50%,
-        38% 38%
-    );
 }
 
 /* 독바 */
@@ -687,6 +370,7 @@ html, body {
 
 <div class="container">
 
+    <!-- 잠금화면 -->
     <section class="screen lock">
         <div class="dim"></div>
 
@@ -720,6 +404,7 @@ html, body {
         </div>
     </section>
 
+    <!-- 홈화면 -->
     <section class="screen home">
         <div class="dim"></div>
 
@@ -727,112 +412,65 @@ html, body {
             <div class="grid">
 
                 <div class="icon">
-                    <div class="app app-health" onclick="openApp('storyApp')">
-                        <div class="health-heart"></div>
+                    <div class="app" onclick="openApp('storyApp')">
+                        <img src="icon-story.png" alt="우리 이야기">
                     </div>
                     <div class="label">우리 이야기</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app app-map" onclick="openApp('mapApp')">
-                        <div class="map-line one"></div>
-                        <div class="map-line two"></div>
-                        <div class="map-line three"></div>
-                        <div class="map-block"></div>
-                        <div class="map-arrow"></div>
+                    <div class="app" onclick="openApp('mapApp')">
+                        <img src="icon-map.png" alt="오시는 길">
                     </div>
                     <div class="label">오시는 길</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app app-photos" onclick="openApp('galleryApp')">
-                        <div class="petals">
-                            <div class="petal"></div>
-                            <div class="petal"></div>
-                            <div class="petal"></div>
-                            <div class="petal"></div>
-                            <div class="petal"></div>
-                            <div class="petal"></div>
-                            <div class="petal"></div>
-                            <div class="petal"></div>
-                        </div>
+                    <div class="app" onclick="openApp('galleryApp')">
+                        <img src="icon-gallery.png" alt="갤러리">
                     </div>
                     <div class="label">갤러리</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app app-mail" onclick="openApp('rsvpApp')">
-                        <div class="mail-envelope"></div>
+                    <div class="app" onclick="openApp('rsvpApp')">
+                        <img src="icon-rsvp.png" alt="참석 여부">
                     </div>
                     <div class="label">참석 여부</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app app-money" onclick="openApp('moneyApp')">
-                        <div class="bank-roof"></div>
-                        <div class="bank-line"></div>
-                        <div class="bank-column c1"></div>
-                        <div class="bank-column c2"></div>
-                        <div class="bank-column c3"></div>
-                        <div class="bank-base"></div>
+                    <div class="app" onclick="openApp('moneyApp')">
+                        <img src="icon-money.png" alt="축의금">
                     </div>
                     <div class="label">축의금</div>
                 </div>
 
                 <div class="icon">
-                    <div class="app app-dress" onclick="openApp('dressApp')">
-                        <div class="shirt"></div>
-                        <div class="shirt-neck"></div>
-                    </div>
-                    <div class="label">드레스 코드</div>
-                </div>
-
-                <div class="icon">
-                    <div class="app app-message" onclick="openApp('guestbookApp')">
-                        <div class="message-bubble"></div>
+                    <div class="app" onclick="openApp('guestbookApp')">
+                        <img src="icon-guestbook.png" alt="방명록">
                     </div>
                     <div class="label">방명록</div>
-                </div>
-
-                <div class="icon">
-                    <div class="app app-notice" onclick="openApp('noticeApp')">
-                        <div class="sparkle-main"></div>
-                        <div class="sparkle-small"></div>
-                    </div>
-                    <div class="label">안내사항</div>
                 </div>
 
             </div>
         </div>
 
         <div class="dock">
-            <div class="app app-health" onclick="openApp('storyApp')">
-                <div class="health-heart"></div>
+            <div class="app" onclick="openApp('storyApp')">
+                <img src="icon-story.png" alt="우리 이야기">
             </div>
 
-            <div class="app app-map" onclick="openApp('mapApp')">
-                <div class="map-line one"></div>
-                <div class="map-line two"></div>
-                <div class="map-line three"></div>
-                <div class="map-block"></div>
-                <div class="map-arrow"></div>
+            <div class="app" onclick="openApp('mapApp')">
+                <img src="icon-map.png" alt="오시는 길">
             </div>
 
-            <div class="app app-photos" onclick="openApp('galleryApp')">
-                <div class="petals">
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                </div>
+            <div class="app" onclick="openApp('galleryApp')">
+                <img src="icon-gallery.png" alt="갤러리">
             </div>
 
-            <div class="app app-mail" onclick="openApp('rsvpApp')">
-                <div class="mail-envelope"></div>
+            <div class="app" onclick="openApp('rsvpApp')">
+                <img src="icon-rsvp.png" alt="참석 여부">
             </div>
         </div>
 
@@ -891,7 +529,7 @@ html, body {
 
 <div class="app-window" id="rsvpApp">
     <div class="app-header">
-        <h2>참석 여부</h2>
+        <h2>RSVP</h2>
         <button class="close-btn" onclick="closeApp('rsvpApp')">×</button>
     </div>
     <div class="app-body">
@@ -921,21 +559,6 @@ html, body {
     </div>
 </div>
 
-<div class="app-window" id="dressApp">
-    <div class="app-header">
-        <h2>드레스 코드</h2>
-        <button class="close-btn" onclick="closeApp('dressApp')">×</button>
-    </div>
-    <div class="app-body">
-        <div class="app-card">
-            <h3>Dress Code</h3>
-            <p>
-                드레스 코드 안내가 들어갈 영역입니다.
-            </p>
-        </div>
-    </div>
-</div>
-
 <div class="app-window" id="guestbookApp">
     <div class="app-header">
         <h2>방명록</h2>
@@ -946,21 +569,6 @@ html, body {
             <h3>축하 메시지</h3>
             <p>
                 방명록 또는 축하 메시지 기능이 들어갈 영역입니다.
-            </p>
-        </div>
-    </div>
-</div>
-
-<div class="app-window" id="noticeApp">
-    <div class="app-header">
-        <h2>안내사항</h2>
-        <button class="close-btn" onclick="closeApp('noticeApp')">×</button>
-    </div>
-    <div class="app-body">
-        <div class="app-card">
-            <h3>예식 안내</h3>
-            <p>
-                주차, 식사, 포토부스, 예식 진행 관련 안내가 들어갈 영역입니다.
             </p>
         </div>
     </div>
