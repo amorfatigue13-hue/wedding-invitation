@@ -747,9 +747,9 @@ body {
 }
 
 .guestbook-title {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.7px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
     color: #222;
     margin-bottom: 16px;
 }
@@ -757,7 +757,7 @@ body {
 .guestbook-desc {
     font-size: 15px;
     line-height: 1.65;
-    color: #555;
+    color: #666;
     letter-spacing: -0.25px;
 }
 
@@ -781,32 +781,56 @@ body {
     color: #777;
     line-height: 1.6;
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 }
 
 .guestbook-list-title {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.4px;
+    font-size: 19px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
     color: #222;
     margin-bottom: 14px;
 }
 
-.guestbook-sheet-box {
-    width: 100%;
-    height: 520px;
-    border-radius: 22px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+.guestbook-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
-.guestbook-sheet-box iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-    background: white;
+.guestbook-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(120,90,60,0.13);
+    border-radius: 20px;
+    padding: 18px 18px 17px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.guestbook-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: -0.25px;
+    margin-bottom: 8px;
+}
+
+.guestbook-message {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #555;
+    letter-spacing: -0.25px;
+    white-space: pre-line;
+}
+
+.guestbook-loading,
+.guestbook-empty {
+    background: rgba(255,255,255,0.75);
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+}
 }
     
 /* 데스크톱 미리보기 */
@@ -1342,17 +1366,64 @@ body {
 
         <div class="guestbook-list-title">남겨진 마음들</div>
 
-        <div class="guestbook-sheet-box">
-            <iframe
-                src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTNWKxVhBE2FQvXFIbpj26n6NPwUWZi94Qewzhv-uftiUOfmn8NU-JPztV2UP6QSHqv0Mt0KW0cU0_0/pubhtml?widget=true&amp;headers=false"
-                frameborder="0">
-            </iframe>
+        <div class="guestbook-list" id="guestbookList">
+            <div class="guestbook-loading">방명록을 불러오는 중입니다.</div>
         </div>
 
     </div>
 </div>
 
 <script>
+const GUESTBOOK_API_URL = 'https://script.google.com/macros/s/AKfycbxcYubIpyKppa1lG7WNlbD9L10o35Je_l0NII7rijbil5oWtxm-G_ce9MTAzCBCjuTZ/exec';
+
+function loadGuestbook() {
+    const list = document.getElementById('guestbookList');
+
+    if (!list) {
+        return;
+    }
+
+    list.innerHTML = '<div class="guestbook-loading">방명록을 불러오는 중입니다.</div>';
+
+    const oldScript = document.getElementById('guestbookJsonp');
+    if (oldScript) {
+        oldScript.remove();
+    }
+
+    window.renderGuestbook = function(items) {
+        if (!items || items.length === 0) {
+            list.innerHTML = '<div class="guestbook-empty">아직 남겨진 메시지가 없습니다.</div>';
+            return;
+        }
+
+        list.innerHTML = items.map(function(item) {
+            const name = escapeHtml(item.name || '익명');
+            const message = escapeHtml(item.message || '');
+
+            return `
+                <div class="guestbook-card">
+                    <div class="guestbook-name">${name}</div>
+                    <div class="guestbook-message">${message}</div>
+                </div>
+            `;
+        }).join('');
+    };
+
+    const script = document.createElement('script');
+    script.id = 'guestbookJsonp';
+    script.src = GUESTBOOK_API_URL + '?callback=renderGuestbook&v=' + Date.now();
+    document.body.appendChild(script);
+}
+
+function escapeHtml(text) {
+    return String(text)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+}
+
 function updateTime() {
     const now = new Date();
 
@@ -1382,6 +1453,10 @@ function openApp(appId) {
     requestAnimationFrame(function() {
         app.scrollTop = 0;
     });
+
+    if (appId === 'guestbookApp') {
+        loadGuestbook();
+    }
 }
 
 function closeApp(appId) {
