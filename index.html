@@ -12,23 +12,17 @@
 
 html,
 body {
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     background: #000;
+    overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
-    overscroll-behavior: none;
-}
-
-body.app-open {
-    overflow: hidden;
-}
-
-body.app-open .container {
-    overflow: hidden;
-    scroll-snap-type: none;
 }
 
 .container {
+    width: 100%;
     height: 100dvh;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
@@ -181,6 +175,8 @@ body.app-open .container {
     white-space: nowrap;
 }
 
+/* 앱 아이콘 */
+
 .app {
     width: 64px;
     height: 64px;
@@ -194,7 +190,7 @@ body.app-open .container {
         0 8px 18px rgba(0,0,0,0.24),
         inset 0 1px 1px rgba(255,255,255,0.30),
         inset 0 -1px 2px rgba(0,0,0,0.18);
-    transition: transform 0.1s ease;
+    transition: transform 0.12s ease;
 }
 
 .app:active {
@@ -254,23 +250,22 @@ body.app-open .container {
     z-index: 99;
     opacity: 0;
     pointer-events: none;
-    transform: scale(0.98);
+    transform: scale(0.96);
     transform-origin: center center;
-    border-radius: 28px;
+    border-radius: 32px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transition:
-        opacity 0.16s ease,
-        transform 0.18s ease,
-        border-radius 0.18s ease;
-    will-change: opacity, transform;
+        opacity 0.2s ease,
+        transform 0.24s ease,
+        border-radius 0.24s ease;
 }
 
 .app-window.active {
     opacity: 1;
     pointer-events: auto;
-    transform: scale(1);
+    transform: none;
     border-radius: 0;
 }
 
@@ -312,7 +307,7 @@ body.app-open .container {
 .app-body {
     flex: 1;
     min-height: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     padding: 26px 22px 90px;
@@ -779,12 +774,12 @@ body.app-open .container {
         top: 20px;
         right: auto;
         bottom: auto;
-        transform: translateX(-50%) scale(0.98);
-        border-radius: 28px;
+        transform: translateX(-50%) scale(0.96);
+        border-radius: 46px;
     }
 
     .app-window.active {
-        transform: translateX(-50%) scale(1);
+        transform: translateX(-50%);
         border-radius: 46px;
     }
 }
@@ -1149,8 +1144,6 @@ body.app-open .container {
 
         <div class="rsvp-form-box">
             <iframe
-                id="rsvpFrame"
-                data-src="https://docs.google.com/forms/d/e/1FAIpQLSdtr9U-dqx_OBn7CqhUpIqxCQa9EWMmgqpdunT0p9du_yknOw/viewform?embedded=true"
                 src="https://docs.google.com/forms/d/e/1FAIpQLSdtr9U-dqx_OBn7CqhUpIqxCQa9EWMmgqpdunT0p9du_yknOw/viewform?embedded=true"
                 frameborder="0"
                 marginheight="0"
@@ -1294,19 +1287,11 @@ function openApp(appId) {
         return;
     }
 
-    document.body.classList.add('app-open');
     app.classList.add('active');
 
     const appBody = app.querySelector('.app-body');
-
     if (appBody) {
-        requestAnimationFrame(function() {
-            appBody.scrollTop = 0;
-        });
-    }
-
-    if (appId === 'rsvpApp') {
-        resetRsvpFrame();
+        appBody.scrollTop = 0;
     }
 }
 
@@ -1318,23 +1303,6 @@ function closeApp(appId) {
     }
 
     app.classList.remove('active');
-    document.body.classList.remove('app-open');
-}
-
-function resetRsvpFrame() {
-    const frame = document.getElementById('rsvpFrame');
-
-    if (!frame) {
-        return;
-    }
-
-    const src = frame.getAttribute('data-src');
-
-    frame.setAttribute('src', 'about:blank');
-
-    setTimeout(function() {
-        frame.setAttribute('src', src);
-    }, 80);
 }
 
 function toggleAccount(button) {
