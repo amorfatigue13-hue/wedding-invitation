@@ -368,6 +368,110 @@ html, body {
     height: 100%;
     border: none;
 }
+
+/* 축의금 앱 */
+
+.money-intro {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.money-title {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    color: #222;
+    margin-bottom: 34px;
+}
+
+.money-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #777;
+    letter-spacing: -0.2px;
+}
+
+.account-section {
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(120,90,60,0.20);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.account-header {
+    width: 100%;
+    height: 52px;
+    border: none;
+    background: transparent;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: inherit;
+    font-size: 16px;
+    color: #3a2c27;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+}
+
+.account-header span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.account-arrow {
+    font-size: 18px;
+    transition: transform 0.22s ease;
+}
+
+.account-section.active .account-arrow {
+    transform: rotate(180deg);
+}
+
+.account-list {
+    display: none;
+    padding: 0 20px 18px;
+}
+
+.account-section.active .account-list {
+    display: block;
+}
+
+.account-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid rgba(120,90,60,0.18);
+}
+
+.account-role {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 4px;
+}
+
+.account-info {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.45;
+    letter-spacing: -0.2px;
+}
+
+.copy-btn {
+    min-width: 54px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(160,110,80,0.35);
+    background: rgba(255,255,255,0.72);
+    color: #8b6b55;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+}
     
 /* 오시는 길 앱 */
 
@@ -848,14 +952,99 @@ html, body {
         <h2>축의금</h2>
         <button class="close-btn" onclick="closeApp('moneyApp')">×</button>
     </div>
+
     <div class="app-body">
-        <div class="app-card">
-            <h3>마음 전하실 곳</h3>
-            <p>
-                계좌번호 안내가 들어갈 영역입니다.
-            </p>
-            <button class="action-button">계좌번호 복사</button>
+
+        <div class="money-intro">
+            <div class="money-title">마음 전하실 곳</div>
+            <div class="money-desc">
+                축하의 마음을 담아<br>
+                축의금을 전해보세요.
+            </div>
         </div>
+
+        <div class="account-section">
+            <button class="account-header" onclick="toggleAccount(this)">
+                <span>♪ 신랑 측 계좌번호</span>
+                <span class="account-arrow">⌃</span>
+            </button>
+
+            <div class="account-list">
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">신랑</div>
+                        <div class="account-info">
+                            조현서 우리은행 1002-250-210423
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '1002-250-210423')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">아버지</div>
+                        <div class="account-info">
+                            조광재 우리은행 0000-000-000000
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '0000-000-000000')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">어머니</div>
+                        <div class="account-info">
+                            조지윤 우리은행 0000-000-000000
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '0000-000-000000')">복사</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="account-section">
+            <button class="account-header" onclick="toggleAccount(this)">
+                <span>♪ 신부 측 계좌번호</span>
+                <span class="account-arrow">⌃</span>
+            </button>
+
+            <div class="account-list">
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">신부</div>
+                        <div class="account-info">
+                            양지은 국민은행 578602-01-2535249
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '578602-01-2535249')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">아버지</div>
+                        <div class="account-info">
+                            양남열 국민은행 000000-00-0000000
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '000000-00-0000000')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">어머니</div>
+                        <div class="account-info">
+                            김혜경 국민은행 000000-00-0000000
+                        </div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '000000-00-0000000')">복사</button>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -899,6 +1088,36 @@ function openApp(appId) {
 function closeApp(appId) {
     document.getElementById(appId).classList.remove('active');
 }
+function toggleAccount(button) {
+    const section = button.closest('.account-section');
+    section.classList.toggle('active');
+}
+
+function copyAccount(button, text) {
+    navigator.clipboard.writeText(text).then(function() {
+        const originalText = button.textContent;
+        button.textContent = '완료';
+
+        setTimeout(function() {
+            button.textContent = originalText;
+        }, 1200);
+    }).catch(function() {
+        const tempInput = document.createElement('input');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        const originalText = button.textContent;
+        button.textContent = '완료';
+
+        setTimeout(function() {
+            button.textContent = originalText;
+        }, 1200);
+    });
+}
+    
 </script>
 
 </body>
