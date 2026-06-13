@@ -22,6 +22,11 @@ body.app-open {
     overflow: hidden;
 }
 
+body.app-open .container {
+    overflow: hidden;
+    scroll-snap-type: none;
+}
+
 .container {
     height: 100dvh;
     overflow-y: auto;
@@ -302,16 +307,16 @@ body.app-open {
 
 .app-body {
     height: calc(100dvh - 74px);
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    touch-action: pan-y;
     padding: 26px 22px 90px;
     color: #111;
     font-size: 16px;
     line-height: 1.65;
 }
+    
 .app-card {
     background: white;
     border-radius: 24px;
@@ -1328,7 +1333,7 @@ function closeApp(appId) {
     app.classList.remove('active');
     document.body.classList.remove('app-open');
 }
-
+    
 function toggleAccount(button) {
     const section = button.closest('.account-section');
 
