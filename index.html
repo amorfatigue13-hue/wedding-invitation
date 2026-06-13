@@ -332,6 +332,105 @@ html, body {
     cursor: pointer;
 }
 
+/* 오시는 길 앱 */
+
+.map-image {
+    width: 100%;
+    height: 190px;
+    border-radius: 22px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    background: #eee;
+}
+
+.map-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.place-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.info-row {
+    margin-bottom: 24px;
+}
+
+.info-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 7px;
+}
+
+.info-value {
+    font-size: 18px;
+    color: #222;
+    line-height: 1.45;
+    letter-spacing: -0.3px;
+}
+
+.info-value strong {
+    font-size: 17px;
+    color: #111;
+}
+
+.map-main-button {
+    display: block;
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0;
+    background: #261f1f;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 22px 0 24px;
+}
+
+.map-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.map-sub-button {
+    height: 82px;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: white;
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.map-sub-button .emoji {
+    font-size: 24px;
+}
+
+.notice-text {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #777;
+    line-height: 1.6;
+}
+
 @media (min-width: 520px) {
     .container {
         width: 430px;
@@ -501,14 +600,66 @@ html, body {
         <h2>오시는 길</h2>
         <button class="close-btn" onclick="closeApp('mapApp')">×</button>
     </div>
+
     <div class="app-body">
-        <div class="app-card">
-            <h3>예식장 위치</h3>
-            <p>
-                예식장 이름, 주소, 주차 안내, 지하철 안내가 들어갈 영역입니다.
-            </p>
-            <button class="action-button">지도 열기</button>
+
+        <div class="map-image">
+            <img src="venuemap.png" alt="세인트메리스 강남 지도">
         </div>
+
+        <div class="place-title">⛪ 세인트메리스 강남</div>
+
+        <div class="info-row">
+            <div class="info-label">주소</div>
+            <div class="info-value">
+                서울 서초구 남부순환로289길 5<br>
+                삼영빌딩 5층
+            </div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">날짜</div>
+            <div class="info-value">2026년 9월 19일</div>
+        </div>
+
+        <div class="info-row">
+            <div class="info-label">시간</div>
+            <div class="info-value">오전 11:30</div>
+        </div>
+
+        <a class="map-main-button" href="https://naver.me/xyT3LlGh" target="_blank">
+            🗺️ 네이버 지도 열기
+        </a>
+
+        <div class="info-row">
+            <div class="info-label">오시는 법</div>
+            <div class="info-value">
+                <strong>도보로 오시는 경우</strong><br>
+                사당역 14번 출구로 나오신 뒤, 남부순환로를 따라 직진하시면 약 9분 정도 소요됩니다.
+                <br><br>
+
+                <strong>버스로 오시는 경우</strong><br>
+                사당역 1번 출구 앞 버스 정류장에서 서초17번 버스를 이용하신 뒤,<br>
+                방배래미안타워 정류장에서 하차하시면 도보 약 3분 거리입니다.
+            </div>
+        </div>
+
+        <div class="map-buttons">
+            <a class="map-sub-button" href="https://naver.me/xyT3LlGh" target="_blank">
+                <div class="emoji">🧭</div>
+                <div>NAVER MAP</div>
+            </a>
+
+            <a class="map-sub-button" href="https://place.map.kakao.com/59391633" target="_blank">
+                <div class="emoji">💬</div>
+                <div>KAKAO MAP</div>
+            </a>
+        </div>
+
+        <div class="notice-text">
+            버튼을 누르면 지도 앱 또는 브라우저에서 위치를 확인하실 수 있습니다.
+        </div>
+
     </div>
 </div>
 
