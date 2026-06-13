@@ -635,7 +635,7 @@ html, body {
 
 .gallery-feature {
     width: 100%;
-    height: 440px;
+    aspect-ratio: 2 / 3;
     position: relative;
     overflow: hidden;
     background: #eee;
@@ -671,7 +671,7 @@ html, body {
 
 .gallery-photo {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 2 / 3;
     overflow: hidden;
     background: #eee;
     cursor: pointer;
@@ -684,16 +684,23 @@ html, body {
     display: block;
 }
 
+/* 가로 사진용: gallery7, gallery8 */
+.gallery-photo.landscape img {
+    object-fit: contain;
+    background: #eee;
+}
+
 /* 사진 크게 보기 */
 
 .photo-viewer {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.92);
-    z-index: 200;
+    background: rgba(0,0,0,0.94);
+    z-index: 300;
     display: none;
     align-items: center;
     justify-content: center;
+    padding: 18px;
 }
 
 .photo-viewer.active {
@@ -704,6 +711,7 @@ html, body {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    display: block;
 }
 
 .photo-viewer-close {
@@ -719,6 +727,7 @@ html, body {
     font-size: 28px;
     line-height: 34px;
     cursor: pointer;
+    z-index: 301;
 }
     
 /* 오시는 법 */
@@ -1058,7 +1067,7 @@ html, body {
         <div class="gallery-feed">
 
             <div class="gallery-block">
-                <div class="gallery-feature" onclick="openPhoto('gallery/gallery1.JPG')">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery1.jpg')">
                     <img src="gallery/gallery1.jpg" alt="웨딩 갤러리 사진">
                     <div class="gallery-caption">
                         저희의 소중한 순간을<br>
@@ -1067,75 +1076,123 @@ html, body {
                 </div>
 
                 <div class="gallery-grid">
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery2.JPG')"><img src="gallery/gallery2.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery3.JPG')"><img src="gallery/gallery3.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery4.JPG')"><img src="gallery/gallery4.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery5.JPG')"><img src="gallery/gallery5.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery2.jpg')">
+                        <img src="gallery/gallery2.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery3.jpg')">
+                        <img src="gallery/gallery3.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery4.jpg')">
+                        <img src="gallery/gallery4.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery5.jpg')">
+                        <img src="gallery/gallery5.jpg" alt="웨딩 갤러리 사진">
+                    </div>
                 </div>
             </div>
 
             <div class="gallery-block">
-                <div class="gallery-feature" onclick="openPhoto('gallery/gallery6.JPG')">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery6.jpg')">
                     <img src="gallery/gallery6.jpg" alt="웨딩 갤러리 사진">
                 </div>
 
                 <div class="gallery-grid">
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery7.JPG')"><img src="gallery/gallery7.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery8.JPG')"><img src="gallery/gallery8.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery9.JPG')"><img src="gallery/gallery9.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery10.JPG')"><img src="gallery/gallery10.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo landscape" onclick="openPhoto('gallery/gallery7.jpg')">
+                        <img src="gallery/gallery7.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo landscape" onclick="openPhoto('gallery/gallery8.jpg')">
+                        <img src="gallery/gallery8.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery9.jpg')">
+                        <img src="gallery/gallery9.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery10.jpg')">
+                        <img src="gallery/gallery10.jpg" alt="웨딩 갤러리 사진">
+                    </div>
                 </div>
             </div>
 
             <div class="gallery-block">
-                <div class="gallery-feature" onclick="openPhoto('gallery/gallery11.JPG')">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery11.jpg')">
                     <img src="gallery/gallery11.jpg" alt="웨딩 갤러리 사진">
                 </div>
 
                 <div class="gallery-grid">
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery12.JPG')"><img src="gallery/gallery12.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery13.JPG')"><img src="gallery/gallery13.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery14.JPG')"><img src="gallery/gallery14.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery15.JPG')"><img src="gallery/gallery15.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery12.jpg')">
+                        <img src="gallery/gallery12.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery13.jpg')">
+                        <img src="gallery/gallery13.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery14.jpg')">
+                        <img src="gallery/gallery14.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery15.jpg')">
+                        <img src="gallery/gallery15.jpg" alt="웨딩 갤러리 사진">
+                    </div>
                 </div>
             </div>
 
             <div class="gallery-block">
-                <div class="gallery-feature" onclick="openPhoto('gallery/gallery16.JPG')">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery16.jpg')">
                     <img src="gallery/gallery16.jpg" alt="웨딩 갤러리 사진">
                 </div>
 
                 <div class="gallery-grid">
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery17.JPG')"><img src="gallery/gallery17.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery18.JPG')"><img src="gallery/gallery18.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery19.JPG')"><img src="gallery/gallery19.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery20.JPG')"><img src="gallery/gallery20.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery17.jpg')">
+                        <img src="gallery/gallery17.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery18.jpg')">
+                        <img src="gallery/gallery18.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery19.jpg')">
+                        <img src="gallery/gallery19.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery20.jpg')">
+                        <img src="gallery/gallery20.jpg" alt="웨딩 갤러리 사진">
+                    </div>
                 </div>
             </div>
 
             <div class="gallery-block">
-                <div class="gallery-feature" onclick="openPhoto('gallery/gallery21.JPG')">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery21.jpg')">
                     <img src="gallery/gallery21.jpg" alt="웨딩 갤러리 사진">
                 </div>
 
                 <div class="gallery-grid">
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery22.JPG')"><img src="gallery/gallery22.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery23.JPG')"><img src="gallery/gallery23.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery24.JPG')"><img src="gallery/gallery24.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery25.JPG')"><img src="gallery/gallery25.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery22.jpg')">
+                        <img src="gallery/gallery22.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery23.jpg')">
+                        <img src="gallery/gallery23.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery24.jpg')">
+                        <img src="gallery/gallery24.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery25.jpg')">
+                        <img src="gallery/gallery25.jpg" alt="웨딩 갤러리 사진">
+                    </div>
                 </div>
             </div>
 
             <div class="gallery-block">
-                <div class="gallery-feature" onclick="openPhoto('gallery/gallery26.JPG')">
+                <div class="gallery-feature" onclick="openPhoto('gallery/gallery26.jpg')">
                     <img src="gallery/gallery26.jpg" alt="웨딩 갤러리 사진">
                 </div>
 
                 <div class="gallery-grid">
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery27.JPG')"><img src="gallery/gallery27.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery28.JPG')"><img src="gallery/gallery28.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery29.JPG')"><img src="gallery/gallery29.JPG" alt="웨딩 갤러리 사진"></div>
-                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery30.JPG')"><img src="gallery/gallery30.JPG" alt="웨딩 갤러리 사진"></div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery27.jpg')">
+                        <img src="gallery/gallery27.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery28.jpg')">
+                        <img src="gallery/gallery28.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery29.jpg')">
+                        <img src="gallery/gallery29.jpg" alt="웨딩 갤러리 사진">
+                    </div>
+                    <div class="gallery-photo" onclick="openPhoto('gallery/gallery30.jpg')">
+                        <img src="gallery/gallery30.jpg" alt="웨딩 갤러리 사진">
+                    </div>
                 </div>
             </div>
 
@@ -1288,9 +1345,10 @@ html, body {
     </div>
 </div>
 
-    <div class="photo-viewer" id="photoViewer" onclick="closePhoto()">
-    <button class="photo-viewer-close" onclick="closePhoto()">×</button>
-    <img id="photoViewerImg" src="" alt="확대 사진">
+<div class="photo-viewer" id="photoViewer" onclick="closePhoto()">
+    <button class="photo-viewer-close" onclick="event.stopPropagation(); closePhoto();">×</button>
+    <img id="photoViewerImg" src="" alt="확대 사진" onclick="event.stopPropagation();">
+</div>
 </div>
 
 <script>
@@ -1353,6 +1411,10 @@ function openPhoto(src) {
     const viewer = document.getElementById('photoViewer');
     const img = document.getElementById('photoViewerImg');
 
+    if (!viewer || !img) {
+        return;
+    }
+
     img.src = src;
     viewer.classList.add('active');
 }
@@ -1361,8 +1423,13 @@ function closePhoto() {
     const viewer = document.getElementById('photoViewer');
     const img = document.getElementById('photoViewerImg');
 
+    if (!viewer || !img) {
+        return;
+    }
+
     viewer.classList.remove('active');
     img.src = '';
+}
 }
     
 </body>
