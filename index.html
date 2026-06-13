@@ -7,6 +7,8 @@
 <title>현서 ♥ 지은 모바일 청첩장</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&display=swap');
+    
 * {
     box-sizing: border-box;
 }
@@ -642,6 +644,99 @@ body {
     letter-spacing: -0.25px;
 }
 
+/* 우리 이야기 앱 */
+
+.story-body {
+    background: #f6f0e6;
+    padding: 0;
+}
+
+.story-invitation {
+    min-height: calc(100dvh - 74px);
+    padding: 58px 26px 72px;
+    text-align: center;
+    background:
+        radial-gradient(circle at center, rgba(255,255,255,0.74) 0%, rgba(246,240,230,0.96) 58%, rgba(232,224,211,0.9) 100%);
+    color: #2d2925;
+    font-family: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", serif;
+}
+
+.story-symbol {
+    font-size: 17px;
+    color: #b88d68;
+    margin-bottom: 42px;
+    line-height: 1;
+    font-family: "Noto Serif KR", "Nanum Myeongjo", serif;
+}
+
+.story-main-title {
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    line-height: 1.85;
+    color: #2b2926;
+    margin-bottom: 40px;
+}
+
+.story-paragraph {
+    font-size: 14.5px;
+    font-weight: 300;
+    line-height: 2.25;
+    letter-spacing: 1.8px;
+    color: #5c554e;
+    margin-bottom: 38px;
+}
+
+.story-date-text {
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.9;
+    letter-spacing: 1.7px;
+    color: #3c362f;
+    margin: 46px 0 34px;
+}
+
+.story-invite-text {
+    font-size: 15.5px;
+    font-weight: 300;
+    line-height: 2.1;
+    letter-spacing: 1.8px;
+    color: #4d463f;
+    margin-bottom: 58px;
+}
+
+.story-family-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    font-size: 14px;
+    color: #3c3732;
+    letter-spacing: 1.1px;
+    font-weight: 300;
+}
+
+.story-family-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 12px;
+    white-space: nowrap;
+}
+
+.story-family-row span {
+    color: #5d5750;
+    font-weight: 300;
+}
+
+.story-family-row strong {
+    font-size: 15.5px;
+    color: #2c2925;
+    font-weight: 400;
+    letter-spacing: 1.4px;
+}
+
+    
 /* 갤러리 앱 */
 
 .gallery-top {
@@ -981,20 +1076,54 @@ body {
 </div>
 
 <!-- 우리 이야기 -->
-
 <div class="app-window" id="storyApp">
     <div class="app-header">
         <h2>우리 이야기</h2>
         <button class="close-btn" onclick="closeApp('storyApp')">×</button>
     </div>
-    <div class="app-body">
-        <div class="app-card">
-            <h3>HYUNSEO & JIEUN</h3>
-            <p>
-                두 사람의 이야기가 들어갈 영역입니다.
-                나중에 첫 만남, 함께한 시간, 결혼 인사말을 넣으면 됩니다.
-            </p>
+
+    <div class="app-body story-body">
+
+        <div class="story-invitation">
+
+            <div class="story-symbol">☾</div>
+
+            <div class="story-main-title">
+                처음에는 몰랐습니다
+            </div>
+
+            <div class="story-paragraph">
+                함께하는 시간이<br>
+                이렇게 자연스러워질 줄은
+            </div>
+
+            <div class="story-paragraph">
+                서로 다른 하루를 살아오던 두 사람이<br>
+                이제 같은 계절을 함께 걸어가려 합니다.
+            </div>
+
+            <div class="story-date-text">
+                2026년 9월 19일 오전 11:30
+            </div>
+
+            <div class="story-invite-text">
+                저희의 새로운 시작에<br>
+                함께해 주세요
+            </div>
+
+            <div class="story-family-list">
+                <div class="story-family-row">
+                    <span>양남열·김혜경의 장녀</span>
+                    <strong>양지은</strong>
+                </div>
+                <div class="story-family-row">
+                    <span>조광재·조지윤의 차남</span>
+                    <strong>조현서</strong>
+                </div>
+            </div>
+
         </div>
+
     </div>
 </div>
 
