@@ -30,29 +30,54 @@ body {
 }
 
 .container {
+    position: relative;
     width: 100%;
     height: 100dvh;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
+    background: #000;
 }
 
 .screen {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100dvh;
     min-height: 100dvh;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    position: relative;
     overflow: hidden;
 }
 
 .lock {
+    z-index: 20;
     background: url('gallery/gallery19.jpg') center/cover no-repeat;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+        opacity 0.54s cubic-bezier(.22,.61,.36,1),
+        visibility 0.54s cubic-bezier(.22,.61,.36,1);
 }
 
 .home {
+    z-index: 10;
     background: url('gallery/gallery4.jpg') center/cover no-repeat;
+    opacity: 0;
+    transform: translateY(44px) scale(1.035);
+    pointer-events: none;
+    transition:
+        opacity 0.42s ease 0.12s,
+        transform 0.62s cubic-bezier(.19,1,.22,1) 0.08s;
+}
+
+.container.unlocked .lock {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.container.unlocked .home {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 
 .dim {
@@ -155,6 +180,67 @@ body {
     margin: 13px auto 0;
 }
 
+.container.unlocking .lock-content,
+.container.unlocked .lock-content {
+    transform: translateY(-160px) scale(0.96);
+    opacity: 0;
+    filter: blur(6px);
+}
+
+.container.unlocking .lock-bottom,
+.container.unlocked .lock-bottom {
+    transform: translateY(-110px) scale(0.96);
+    opacity: 0;
+    filter: blur(5px);
+}
+
+.lock-content,
+.lock-bottom {
+    transition:
+        transform 0.58s cubic-bezier(.19,1,.22,1),
+        opacity 0.36s ease,
+        filter 0.45s ease;
+}
+
+.icon {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+}
+
+.container.unlocked .icon {
+    animation: iconRise 0.54s cubic-bezier(.19,1,.22,1) forwards;
+}
+
+.container.unlocked .icon:nth-child(1) { animation-delay: 0.14s; }
+.container.unlocked .icon:nth-child(2) { animation-delay: 0.18s; }
+.container.unlocked .icon:nth-child(3) { animation-delay: 0.22s; }
+.container.unlocked .icon:nth-child(4) { animation-delay: 0.26s; }
+.container.unlocked .icon:nth-child(5) { animation-delay: 0.30s; }
+.container.unlocked .icon:nth-child(6) { animation-delay: 0.34s; }
+
+@keyframes iconRise {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.dock {
+    opacity: 0;
+    transform: translateY(26px) scale(0.98);
+}
+
+.container.unlocked .dock {
+    animation: dockRise 0.56s cubic-bezier(.19,1,.22,1) 0.26s forwards;
+}
+
+@keyframes dockRise {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+    
 /* 홈화면 */
 
 .home-content {
@@ -970,7 +1056,7 @@ body {
 
 <body>
 
-<div class="container">
+<div class="container" id="phoneFrame">
 
 <!-- 잠금화면 -->
 <section class="screen lock">
@@ -1573,6 +1659,76 @@ function updateTime() {
 updateTime();
 setInterval(updateTime, 1000);
 
+function setupUnlockGesture() {
+    const phone = document.getElementById('phoneFrame');
+
+    if (!phone) {
+        return;
+    }
+
+    let startY = 0;
+    let startX = 0;
+    let isTouching = false;
+
+    function unlockPhone() {
+        if (phone.classList.contains('unlocked') || phone.classList.contains('unlocking')) {
+            return;
+        }
+
+        phone.classList.add('unlocking');
+
+        setTimeout(function() {
+            phone.classList.add('unlocked');
+            phone.classList.remove('unlocking');
+        }, 130);
+    }
+
+    phone.addEventListener('touchstart', function(event) {
+        if (phone.classList.contains('unlocked')) {
+            return;
+        }
+
+        const touch = event.touches[0];
+        startY = touch.clientY;
+        startX = touch.clientX;
+        isTouching = true;
+    }, { passive: true });
+
+    phone.addEventListener('touchend', function(event) {
+        if (!isTouching || phone.classList.contains('unlocked')) {
+            return;
+        }
+
+        const touch = event.changedTouches[0];
+        const diffY = startY - touch.clientY;
+        const diffX = Math.abs(startX - touch.clientX);
+
+        if (diffY > 55 && diffX < 90) {
+            unlockPhone();
+        }
+
+        isTouching = false;
+    }, { passive: true });
+
+    phone.addEventListener('wheel', function(event) {
+        if (phone.classList.contains('unlocked')) {
+            return;
+        }
+
+        if (event.deltaY > 30) {
+            unlockPhone();
+        }
+    }, { passive: true });
+
+    phone.addEventListener('click', function() {
+        if (!phone.classList.contains('unlocked')) {
+            unlockPhone();
+        }
+    });
+}
+
+setupUnlockGesture();
+    
 function openApp(appId) {
     const app = document.getElementById(appId);
 
