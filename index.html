@@ -830,99 +830,174 @@ body {
     
 /* 갤러리 앱 */
 
-.gallery-top {
-    margin-bottom: 26px;
-}
+/* 아이폰 사진 앱 스타일 갤러리 */
 
-.gallery-count {
-    font-size: 13px;
-    color: #aaa;
-    letter-spacing: 5px;
-    margin-bottom: 6px;
-}
-
-.gallery-title {
-    font-size: 34px;
-    font-weight: 800;
-    letter-spacing: -1.4px;
-    line-height: 1.05;
-    color: #111;
-    margin-bottom: 28px;
-}
-
-.gallery-line {
-    width: 88px;
-    height: 2px;
-    background: #111;
-    margin-bottom: 28px;
-}
-
-.gallery-subtitle {
-    font-size: 18px;
-    color: #777;
-    letter-spacing: -0.4px;
-}
-
-.gallery-feed {
-    width: calc(100% + 44px);
-    margin-left: -22px;
-}
-
-.gallery-block {
-    margin-bottom: 2px;
-}
-
-.gallery-feature {
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    position: relative;
-    overflow: hidden;
-    background: #eee;
-}
-
-.gallery-feature.landscape {
-    aspect-ratio: 3 / 2;
-}
-
-.gallery-feature img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.gallery-caption {
-    position: absolute;
-    left: 22px;
-    right: 22px;
-    bottom: 22px;
+.gallery-window {
+    background: #000;
     color: white;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.35;
-    letter-spacing: -0.8px;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.55);
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    margin-top: 2px;
-}
-
-.gallery-photo {
-    width: 100%;
-    aspect-ratio: 2 / 3;
     overflow: hidden;
-    background: #eee;
 }
 
-.gallery-photo img {
+.iphone-gallery-header {
+    position: sticky;
+    top: 0;
+    height: 92px;
+    padding: 28px 18px 10px;
+    display: grid;
+    grid-template-columns: 58px 1fr 58px;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.82), rgba(0,0,0,0.34), rgba(0,0,0,0));
+    z-index: 20;
+}
+
+.iphone-gallery-back,
+.iphone-gallery-more {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(90,90,90,0.52);
+    color: white;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.18);
+}
+
+.iphone-gallery-back {
+    font-size: 44px;
+    line-height: 44px;
+    font-weight: 200;
+    padding: 0 0 6px;
+}
+
+.iphone-gallery-more {
+    font-size: 22px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    padding: 0 0 5px 2px;
+}
+
+.iphone-gallery-title-wrap {
+    justify-self: center;
+    min-width: 168px;
+    max-width: 230px;
+    padding: 8px 22px 10px;
+    border-radius: 28px;
+    background: rgba(95,95,95,0.52);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    text-align: center;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.15);
+}
+
+.iphone-gallery-title {
+    font-size: 18px;
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -0.2px;
+}
+
+.iphone-gallery-subtitle {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.76);
+}
+
+.iphone-gallery-viewer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    overflow: hidden;
+    touch-action: pan-y;
+}
+
+.iphone-gallery-viewer img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: opacity 0.18s ease, transform 0.22s ease;
+}
+
+.iphone-gallery-viewer img.changing {
+    opacity: 0.55;
+    transform: scale(0.985);
+}
+
+.iphone-gallery-thumbs {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    z-index: 20;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 0 22px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: linear-gradient(to top, rgba(0,0,0,0.74), rgba(0,0,0,0));
+}
+
+.iphone-gallery-thumbs::-webkit-scrollbar {
+    display: none;
+}
+
+.iphone-thumb {
+    width: 38px;
+    height: 54px;
+    flex: 0 0 auto;
+    border: none;
+    padding: 0;
+    border-radius: 7px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.16);
+    opacity: 0.55;
+    cursor: pointer;
+    transform: scale(0.94);
+    transition:
+        opacity 0.16s ease,
+        transform 0.16s ease,
+        box-shadow 0.16s ease;
+}
+
+.iphone-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    pointer-events: none;
+}
+
+.iphone-thumb.active {
+    opacity: 1;
+    transform: scale(1.06);
+    box-shadow: 0 0 0 2px white;
+}
+
+@media (min-width: 520px) {
+    .gallery-window {
+        overflow: hidden;
+    }
+
+    .iphone-gallery-viewer {
+        inset: 0;
+    }
+
+    .iphone-gallery-thumbs {
+        bottom: 28px;
+    }
 }
 
 /* 방명록 앱 */
@@ -1315,120 +1390,114 @@ body {
 </div>
 
 <!-- 갤러리 -->
+<div class="app-window gallery-window" id="galleryApp">
+    <div class="iphone-gallery-header">
+        <button class="iphone-gallery-back" onclick="closeApp('galleryApp')">‹</button>
 
-<div class="app-window" id="galleryApp">
-    <div class="app-header">
-        <h2>갤러리</h2>
-        <button class="close-btn" onclick="closeApp('galleryApp')">×</button>
+        <div class="iphone-gallery-title-wrap">
+            <div class="iphone-gallery-title">Gallery</div>
+            <div class="iphone-gallery-subtitle" id="galleryCounter">1 / 30</div>
+        </div>
+
+        <button class="iphone-gallery-more">•••</button>
     </div>
 
-<div class="app-body">
-
-    <div class="gallery-top">
-        <div class="gallery-count">30 PHOTOS</div>
-        <div class="gallery-title">JIEUN & HYUNSEO</div>
-        <div class="gallery-line"></div>
-        <div class="gallery-subtitle">소중한 순간들</div>
+    <div class="iphone-gallery-viewer" id="galleryViewer">
+        <img id="galleryMainImage" src="gallery/gallery1.jpg" alt="웨딩 갤러리 사진">
     </div>
 
-    <div class="gallery-feed">
-
-        <div class="gallery-block">
-            <div class="gallery-feature">
-                <img src="gallery/gallery1.jpg" alt="웨딩 갤러리 사진" decoding="async">
-                <div class="gallery-caption">
-                    저희의 소중한 순간을<br>
-                    함께 나눕니다
-                </div>
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-photo"><img src="gallery/gallery2.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery3.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery4.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery5.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-            </div>
-        </div>
-
-        <div class="gallery-block">
-            <div class="gallery-feature">
-                <img src="gallery/gallery6.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async">
-            </div>
-        </div>
-
-        <div class="gallery-block">
-            <div class="gallery-feature landscape">
-                <img src="gallery/gallery7.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async">
-            </div>
-        </div>
-
-        <div class="gallery-block">
-            <div class="gallery-feature landscape">
-                <img src="gallery/gallery8.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async">
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-photo"><img src="gallery/gallery9.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery10.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery11.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery12.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-            </div>
-        </div>
-
-        <div class="gallery-block">
-            <div class="gallery-feature">
-                <img src="gallery/gallery13.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async">
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-photo"><img src="gallery/gallery14.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery15.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery16.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery17.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-            </div>
-        </div>
-
-        <div class="gallery-block">
-            <div class="gallery-feature">
-                <img src="gallery/gallery18.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async">
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-photo"><img src="gallery/gallery19.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery20.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery21.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery22.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-            </div>
-        </div>
-
-        <div class="gallery-block">
-            <div class="gallery-feature">
-                <img src="gallery/gallery23.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async">
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-photo"><img src="gallery/gallery24.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery25.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery26.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery27.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-            </div>
-        </div>
-
-        <div class="gallery-block">
-            <div class="gallery-feature">
-                <img src="gallery/gallery28.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async">
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-photo"><img src="gallery/gallery29.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-                <div class="gallery-photo"><img src="gallery/gallery30.jpg" alt="웨딩 갤러리 사진" loading="lazy" decoding="async"></div>
-            </div>
-        </div>
-
+    <div class="iphone-gallery-thumbs" id="galleryThumbs">
+        <button class="iphone-thumb active" onclick="showGalleryImage(0)">
+            <img src="gallery/gallery1.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(1)">
+            <img src="gallery/gallery2.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(2)">
+            <img src="gallery/gallery3.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(3)">
+            <img src="gallery/gallery4.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(4)">
+            <img src="gallery/gallery5.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(5)">
+            <img src="gallery/gallery6.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(6)">
+            <img src="gallery/gallery7.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(7)">
+            <img src="gallery/gallery8.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(8)">
+            <img src="gallery/gallery9.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(9)">
+            <img src="gallery/gallery10.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(10)">
+            <img src="gallery/gallery11.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(11)">
+            <img src="gallery/gallery12.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(12)">
+            <img src="gallery/gallery13.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(13)">
+            <img src="gallery/gallery14.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(14)">
+            <img src="gallery/gallery15.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(15)">
+            <img src="gallery/gallery16.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(16)">
+            <img src="gallery/gallery17.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(17)">
+            <img src="gallery/gallery18.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(18)">
+            <img src="gallery/gallery19.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(19)">
+            <img src="gallery/gallery20.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(20)">
+            <img src="gallery/gallery21.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(21)">
+            <img src="gallery/gallery22.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(22)">
+            <img src="gallery/gallery23.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(23)">
+            <img src="gallery/gallery24.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(24)">
+            <img src="gallery/gallery25.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(25)">
+            <img src="gallery/gallery26.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(26)">
+            <img src="gallery/gallery27.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(27)">
+            <img src="gallery/gallery28.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(28)">
+            <img src="gallery/gallery29.jpg" alt="">
+        </button>
+        <button class="iphone-thumb" onclick="showGalleryImage(29)">
+            <img src="gallery/gallery30.jpg" alt="">
+        </button>
     </div>
-
-</div>
-
 </div>
 
 <!-- 참석 여부 -->
@@ -1728,6 +1797,129 @@ function setupUnlockGesture() {
 }
 
 setupUnlockGesture();
+
+const galleryImages = [
+    'gallery/gallery1.jpg',
+    'gallery/gallery2.jpg',
+    'gallery/gallery3.jpg',
+    'gallery/gallery4.jpg',
+    'gallery/gallery5.jpg',
+    'gallery/gallery6.jpg',
+    'gallery/gallery7.jpg',
+    'gallery/gallery8.jpg',
+    'gallery/gallery9.jpg',
+    'gallery/gallery10.jpg',
+    'gallery/gallery11.jpg',
+    'gallery/gallery12.jpg',
+    'gallery/gallery13.jpg',
+    'gallery/gallery14.jpg',
+    'gallery/gallery15.jpg',
+    'gallery/gallery16.jpg',
+    'gallery/gallery17.jpg',
+    'gallery/gallery18.jpg',
+    'gallery/gallery19.jpg',
+    'gallery/gallery20.jpg',
+    'gallery/gallery21.jpg',
+    'gallery/gallery22.jpg',
+    'gallery/gallery23.jpg',
+    'gallery/gallery24.jpg',
+    'gallery/gallery25.jpg',
+    'gallery/gallery26.jpg',
+    'gallery/gallery27.jpg',
+    'gallery/gallery28.jpg',
+    'gallery/gallery29.jpg',
+    'gallery/gallery30.jpg'
+];
+
+let currentGalleryIndex = 0;
+let galleryTouchStartX = 0;
+let galleryTouchStartY = 0;
+
+function showGalleryImage(index) {
+    if (index < 0 || index >= galleryImages.length) {
+        return;
+    }
+
+    currentGalleryIndex = index;
+
+    const mainImage = document.getElementById('galleryMainImage');
+    const counter = document.getElementById('galleryCounter');
+    const thumbs = document.querySelectorAll('.iphone-thumb');
+
+    if (!mainImage) {
+        return;
+    }
+
+    mainImage.classList.add('changing');
+
+    setTimeout(function() {
+        mainImage.src = galleryImages[currentGalleryIndex];
+        mainImage.classList.remove('changing');
+    }, 90);
+
+    if (counter) {
+        counter.textContent = (currentGalleryIndex + 1) + ' / ' + galleryImages.length;
+    }
+
+    thumbs.forEach(function(thumb, thumbIndex) {
+        thumb.classList.toggle('active', thumbIndex === currentGalleryIndex);
+    });
+
+    const activeThumb = thumbs[currentGalleryIndex];
+    if (activeThumb) {
+        activeThumb.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest'
+        });
+    }
+}
+
+function nextGalleryImage() {
+    const nextIndex = currentGalleryIndex + 1;
+
+    if (nextIndex < galleryImages.length) {
+        showGalleryImage(nextIndex);
+    }
+}
+
+function prevGalleryImage() {
+    const prevIndex = currentGalleryIndex - 1;
+
+    if (prevIndex >= 0) {
+        showGalleryImage(prevIndex);
+    }
+}
+
+function setupGallerySwipe() {
+    const viewer = document.getElementById('galleryViewer');
+
+    if (!viewer) {
+        return;
+    }
+
+    viewer.addEventListener('touchstart', function(event) {
+        const touch = event.touches[0];
+        galleryTouchStartX = touch.clientX;
+        galleryTouchStartY = touch.clientY;
+    }, { passive: true });
+
+    viewer.addEventListener('touchend', function(event) {
+        const touch = event.changedTouches[0];
+        const diffX = galleryTouchStartX - touch.clientX;
+        const diffY = Math.abs(galleryTouchStartY - touch.clientY);
+
+        if (Math.abs(diffX) > 48 && diffY < 90) {
+            if (diffX > 0) {
+                nextGalleryImage();
+            } else {
+                prevGalleryImage();
+            }
+        }
+    }, { passive: true });
+}
+
+setupGallerySwipe();
     
 function openApp(appId) {
     const app = document.getElementById(appId);
@@ -1744,6 +1936,10 @@ function openApp(appId) {
 
     if (appId === 'guestbookApp') {
         loadGuestbook();
+    }
+
+    if (appId === 'galleryApp') {
+    showGalleryImage(currentGalleryIndex);
     }
 }
 
