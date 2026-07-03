@@ -136,8 +136,7 @@ body {
     pointer-events: auto;
 }
 
-.intro-back-btn,
-.intro-more-btn {
+.intro-back-btn {
     width: 54px;
     height: 54px;
     border-radius: 50%;
@@ -156,13 +155,6 @@ body {
     line-height: 44px;
     font-weight: 200;
     padding: 0 0 6px;
-}
-
-.intro-more-btn {
-    font-size: 22px;
-    letter-spacing: 2px;
-    font-weight: 700;
-    padding: 0 0 5px 2px;
 }
 
 .intro-title-box {
@@ -238,14 +230,20 @@ body {
 .intro-progress::-webkit-slider-thumb {
     appearance: none;
     -webkit-appearance: none;
-    width: 0;
-    height: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
 }
 
 .intro-progress::-moz-range-thumb {
-    width: 0;
-    height: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
     border: none;
+    cursor: pointer;
 }
 
 @media (min-width: 520px) {
@@ -260,6 +258,65 @@ body {
         box-shadow: 0 0 0 10px #111, 0 30px 80px rgba(0,0,0,0.5);
     }
 }
+
+.intro-mute-btn {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.speaker-icon {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    width: 26px;
+    height: 22px;
+}
+
+.speaker-icon::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 8px;
+    height: 10px;
+    background: white;
+    border-radius: 2px;
+}
+
+.speaker-icon::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 1px;
+    width: 16px;
+    height: 20px;
+    border: 4px solid white;
+    border-left: none;
+    border-radius: 0 18px 18px 0;
+}
+
+.intro-mute-btn.is-muted .speaker-icon {
+    opacity: 0.95;
+}
+
+.intro-mute-btn.is-muted::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 10px;
+    width: 34px;
+    height: 5px;
+    background: white;
+    border-radius: 999px;
+    transform: rotate(45deg);
+    transform-origin: center;
+}
+
     
 /* 잠금화면 */
 
@@ -1325,7 +1382,7 @@ body {
                 <div class="intro-title">Jieun &amp; Hyunseo</div>
             </div>
 
-            <button class="intro-more-btn">•••</button>
+            <div class="intro-top-spacer"></div>
         </div>
 
         <div class="intro-controls">
@@ -1340,7 +1397,9 @@ body {
                 value="0"
                 step="0.1">
 
-            <button class="intro-mute-btn" id="introMuteBtn" onclick="toggleIntroMute()">🔇</button>
+           <button class="intro-mute-btn is-muted" id="introMuteBtn" onclick="toggleIntroMute()" aria-label="음소거">
+    <span class="speaker-icon"></span>
+</button>
         </div>
     </div>
 </div>
@@ -1975,13 +2034,21 @@ function setupIntroVideo() {
         progress.value = (video.currentTime / video.duration) * 100;
     });
 
-    progress.addEventListener('input', function() {
-        if (!video.duration) {
-            return;
-        }
+progress.addEventListener('input', function() {
+    if (!video.duration) {
+        return;
+    }
 
-        video.currentTime = (progress.value / 100) * video.duration;
-    });
+    video.currentTime = (Number(progress.value) / 100) * video.duration;
+});
+
+progress.addEventListener('change', function() {
+    if (!video.duration) {
+        return;
+    }
+
+    video.currentTime = (Number(progress.value) / 100) * video.duration;
+});
 
     video.addEventListener('play', function() {
         if (playBtn) {
@@ -2009,9 +2076,10 @@ function setupIntroVideo() {
         ui.classList.toggle('hidden');
     });
 
-    if (muteBtn) {
-        muteBtn.textContent = video.muted ? '🔇' : '🔊';
-    }
+   if (muteBtn) {
+    muteBtn.classList.toggle('is-muted', video.muted);
+    muteBtn.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
+}
 }
 
 function closeIntroVideo() {
@@ -2058,9 +2126,10 @@ function toggleIntroMute() {
 
     video.muted = !video.muted;
 
-    if (muteBtn) {
-        muteBtn.textContent = video.muted ? '🔇' : '🔊';
-    }
+if (muteBtn) {
+    muteBtn.classList.toggle('is-muted', video.muted);
+    muteBtn.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
+}
 
     if (!video.paused) {
         video.play().catch(function() {});
