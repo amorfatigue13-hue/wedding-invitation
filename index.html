@@ -197,24 +197,38 @@ body {
     pointer-events: auto;
 }
 
-.intro-play-btn,
-.intro-mute-btn {
+.intro-play-btn {
+    width: 52px;
+    height: 52px;
     border: none;
     background: transparent;
     color: white;
     font-family: inherit;
     cursor: pointer;
-}
-
-.intro-play-btn {
     font-size: 31px;
     font-weight: 700;
     line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
 .intro-mute-btn {
-    font-size: 25px;
-    line-height: 1;
+    width: 52px;
+    height: 52px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.intro-mute-btn:not(.is-muted) .mute-slash {
+    display: none;
 }
 
 .intro-progress {
@@ -1389,15 +1403,23 @@ body {
                 step="0.1">
 
 <button class="intro-mute-btn is-muted" id="introMuteBtn" onclick="toggleIntroMute()" aria-label="음소거">
-    <svg class="iphone-sound-icon" viewBox="0 0 64 64" aria-hidden="true">
-        <path class="iphone-speaker-body"
-              d="M10 26H22L38 12V52L22 38H10Z" />
-        <path class="iphone-sound-wave wave-1"
-              d="M45 25C48 29 48 35 45 39" />
-        <path class="iphone-sound-wave wave-2"
-              d="M52 18C59 26 59 38 52 46" />
-        <path class="iphone-mute-line"
-              d="M50 16L16 50" />
+    <svg width="38" height="38" viewBox="0 0 64 64" aria-hidden="true" style="display:block;">
+        <path
+            d="M12 27H23L39 13V51L23 37H12Z"
+            fill="none"
+            stroke="white"
+            stroke-width="5.5"
+            stroke-linejoin="round"
+            stroke-linecap="round">
+        </path>
+        <path
+            class="mute-slash"
+            d="M52 16L18 50"
+            fill="none"
+            stroke="white"
+            stroke-width="6.5"
+            stroke-linecap="round">
+        </path>
     </svg>
 </button>
 
