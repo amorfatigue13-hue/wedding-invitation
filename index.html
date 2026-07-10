@@ -119,36 +119,31 @@ body {
     z-index: 2;
     opacity: 1;
     transition: opacity 0.22s ease;
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 .intro-video-ui.hidden {
     opacity: 0;
 }
 
-.intro-skip-row {
-    position: absolute;
-    top: 28px;
-    right: 18px;
-    z-index: 3;
-    pointer-events: auto;
-}
-
 .intro-skip-btn {
-    min-width: 62px;
-    height: 34px;
-    padding: 0 16px;
+    position: absolute;
+    top: 24px;
+    right: 20px;
+    min-width: 58px;
+    height: 32px;
+    padding: 0 15px;
     border-radius: 999px;
     border: 1px solid rgba(255,255,255,0.16);
-    background: rgba(45,45,45,0.38);
+    background: rgba(45,45,45,0.34);
     color: rgba(255,255,255,0.92);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     font-family: inherit;
     font-size: 13px;
     font-weight: 650;
-    letter-spacing: -0.1px;
     cursor: pointer;
+    z-index: 5;
 }
 
 .intro-controls {
@@ -167,7 +162,7 @@ body {
     align-items: center;
     gap: 10px;
     padding: 0 11px;
-    pointer-events: auto;
+    z-index: 5;
 }
 
 .intro-play-btn {
@@ -231,10 +226,6 @@ body {
     line-height: 0 !important;
     color: transparent !important;
     overflow: hidden !important;
-}
-
-.intro-mute-btn * {
-    display: none !important;
 }
 
 .intro-mute-btn.is-muted {
@@ -1443,32 +1434,36 @@ body {
         autoplay
         muted
         playsinline
-        preload="auto">
+        preload="metadata"
+        onended="closeIntroVideo()">
     </video>
 
-<div class="intro-video-ui" id="introVideoUi">
+    <div class="intro-video-ui" id="introVideoUi">
 
-    <div class="intro-skip-row">
-        <button class="intro-skip-btn" id="introSkipBtn" type="button">Skip</button>
+        <button class="intro-skip-btn" id="introSkipBtn" type="button" onclick="closeIntroVideo(event)">
+            Skip
+        </button>
+
+        <div class="intro-controls" id="introControls">
+            <button class="intro-play-btn" id="introPlayBtn" type="button" onclick="toggleIntroPlay(event)">Ⅱ</button>
+
+            <input
+                class="intro-progress"
+                id="introProgress"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="0.1"
+                oninput="seekIntroVideo(this)"
+                onchange="seekIntroVideo(this)">
+
+            <button class="intro-mute-btn is-muted" id="introMuteBtn" type="button" onclick="toggleIntroMute(event)" aria-label="음소거"></button>
+        </div>
+
     </div>
-
-    <div class="intro-controls">
-        <button class="intro-play-btn" id="introPlayBtn" onclick="toggleIntroPlay()">Ⅱ</button>
-
-        <input
-            class="intro-progress"
-            id="introProgress"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-            step="0.1">
-
-        <button class="intro-mute-btn is-muted" id="introMuteBtn" onclick="toggleIntroMute()" aria-label="음소거"></button>
-    </div>
-
 </div>
-        
+
 <div class="container" id="phoneFrame">
 
 <!-- 잠금화면 -->
@@ -2098,34 +2093,20 @@ function setupIntroVideo() {
     const playBtn = document.getElementById('introPlayBtn');
     const muteBtn = document.getElementById('introMuteBtn');
     const progress = document.getElementById('introProgress');
-    const skipBtn = document.getElementById('introSkipBtn');
-    const controls = document.querySelector('.intro-controls');
     const phone = document.getElementById('phoneFrame');
 
     if (!introScreen || !video || !ui || !progress) {
         return;
     }
 
-    if (skipBtn) {
-    skipBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        closeIntroVideo();
-    });
-    }
-
-    if (controls) {
-    controls.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
-    }
-    
     if (phone) {
         phone.classList.remove('unlocked');
         phone.classList.remove('unlocking');
     }
 
     video.muted = true;
+    updateIntroMuteButton();
+
     video.play().catch(function() {
         if (playBtn) {
             playBtn.textContent = '▶';
@@ -2139,22 +2120,6 @@ function setupIntroVideo() {
 
         progress.value = (video.currentTime / video.duration) * 100;
     });
-
-progress.addEventListener('input', function() {
-    if (!video.duration) {
-        return;
-    }
-
-    video.currentTime = (Number(progress.value) / 100) * video.duration;
-});
-
-progress.addEventListener('change', function() {
-    if (!video.duration) {
-        return;
-    }
-
-    video.currentTime = (Number(progress.value) / 100) * video.duration;
-});
 
     video.addEventListener('play', function() {
         if (playBtn) {
@@ -2173,19 +2138,103 @@ progress.addEventListener('change', function() {
     });
 
     introScreen.addEventListener('click', function(event) {
-        const clickedControl = event.target.closest('.intro-skip-row, .intro-controls');
+        const clickedControl = event.target.closest('.intro-skip-btn, .intro-controls');
+
         if (clickedControl) {
             return;
         }
 
         ui.classList.toggle('hidden');
     });
+}
 
-   if (muteBtn) {
+function closeIntroVideo(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    const introScreen = document.getElementById('introVideoScreen');
+    const video = document.getElementById('introVideo');
+    const phone = document.getElementById('phoneFrame');
+
+    if (video) {
+        video.pause();
+        video.currentTime = 0;
+    }
+
+    if (introScreen) {
+        introScreen.classList.add('hidden');
+    }
+
+    if (phone) {
+        phone.classList.remove('unlocked');
+        phone.classList.remove('unlocking');
+    }
+}
+
+function toggleIntroPlay(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    const video = document.getElementById('introVideo');
+
+    if (!video) {
+        return;
+    }
+
+    if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
+    }
+}
+
+function seekIntroVideo(input) {
+    const video = document.getElementById('introVideo');
+
+    if (!video || !video.duration) {
+        return;
+    }
+
+    video.currentTime = (Number(input.value) / 100) * video.duration;
+}
+
+function updateIntroMuteButton() {
+    const video = document.getElementById('introVideo');
+    const muteBtn = document.getElementById('introMuteBtn');
+
+    if (!video || !muteBtn) {
+        return;
+    }
+
     muteBtn.classList.toggle('is-muted', video.muted);
     muteBtn.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
 }
+
+function toggleIntroMute(event) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    const video = document.getElementById('introVideo');
+
+    if (!video) {
+        return;
+    }
+
+    video.muted = !video.muted;
+    updateIntroMuteButton();
+
+    if (!video.paused) {
+        video.play().catch(function() {});
+    }
 }
+
+setupIntroVideo();
 
 function closeIntroVideo() {
     const introScreen = document.getElementById('introVideoScreen');
