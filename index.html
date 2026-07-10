@@ -153,38 +153,38 @@ body {
 
 .intro-controls {
     position: absolute;
-    left: 42px;
-    right: 42px;
-    bottom: 22px;
-    height: 50px;
+    left: 46px;
+    right: 46px;
+    bottom: 18px;
+    height: 46px;
     border-radius: 999px;
-    background: rgba(45,45,45,0.34);
-    border: 1px solid rgba(255,255,255,0.11);
+    background: rgba(35,35,35,0.32);
+    border: 1px solid rgba(255,255,255,0.12);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     display: grid;
-    grid-template-columns: 38px 1fr 38px;
+    grid-template-columns: 34px 1fr 34px;
     align-items: center;
-    gap: 8px;
-    padding: 0 12px;
+    gap: 10px;
+    padding: 0 11px;
     pointer-events: auto;
 }
 
 .intro-play-btn {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border: none;
     background: transparent;
     color: white;
     font-family: inherit;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 0 0 1px;
 }
 
 .intro-progress {
@@ -195,21 +195,22 @@ body {
     border-radius: 999px;
     background: rgba(255,255,255,0.38);
     outline: none;
+    display: block;
 }
 
 .intro-progress::-webkit-slider-thumb {
     appearance: none;
     -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
     background: white;
     cursor: pointer;
 }
 
 .intro-progress::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
     background: white;
     border: none;
@@ -217,13 +218,13 @@ body {
 }
 
 .intro-mute-btn {
-    width: 38px !important;
-    height: 38px !important;
+    width: 34px !important;
+    height: 34px !important;
     border: none !important;
     background-color: transparent !important;
     background-repeat: no-repeat !important;
     background-position: center !important;
-    background-size: 28px 28px !important;
+    background-size: 27px 27px !important;
     cursor: pointer !important;
     padding: 0 !important;
     font-size: 0 !important;
@@ -1448,7 +1449,7 @@ body {
 <div class="intro-video-ui" id="introVideoUi">
 
     <div class="intro-skip-row">
-        <button class="intro-skip-btn" onclick="closeIntroVideo()">Skip</button>
+        <button class="intro-skip-btn" id="introSkipBtn" type="button">Skip</button>
     </div>
 
     <div class="intro-controls">
@@ -2097,12 +2098,28 @@ function setupIntroVideo() {
     const playBtn = document.getElementById('introPlayBtn');
     const muteBtn = document.getElementById('introMuteBtn');
     const progress = document.getElementById('introProgress');
+    const skipBtn = document.getElementById('introSkipBtn');
+    const controls = document.querySelector('.intro-controls');
     const phone = document.getElementById('phoneFrame');
 
     if (!introScreen || !video || !ui || !progress) {
         return;
     }
 
+    if (skipBtn) {
+    skipBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeIntroVideo();
+    });
+    }
+
+    if (controls) {
+    controls.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+    }
+    
     if (phone) {
         phone.classList.remove('unlocked');
         phone.classList.remove('unlocking');
@@ -2156,8 +2173,7 @@ progress.addEventListener('change', function() {
     });
 
     introScreen.addEventListener('click', function(event) {
-        const clickedControl = event.target.closest('.intro-top, .intro-controls');
-
+        const clickedControl = event.target.closest('.intro-skip-row, .intro-controls');
         if (clickedControl) {
             return;
         }
