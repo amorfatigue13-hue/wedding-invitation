@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>지은 ♥ 현서 모바일 청첩장</title>
+
 <meta property="og:type" content="website">
 <meta property="og:title" content="지은 ♥ 현서 모바일 청첩장">
 <meta property="og:description" content="2026년 9월 19일 오전 11시 30분, 세인트메리스 강남">
 <meta property="og:image" content="https://amorfatigue13-hue.github.io/wedding-invitation/gallery/gallery8.jpg">
 <meta property="og:url" content="https://amorfatigue13-hue.github.io/wedding-invitation/">
-    
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&display=swap');
-    
+
 * {
     box-sizing: border-box;
 }
@@ -28,6 +28,8 @@ body {
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
 }
+
+/* 전체 프레임 */
 
 .container {
     position: relative;
@@ -45,6 +47,169 @@ body {
     min-height: 100dvh;
     overflow: hidden;
 }
+
+.dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.18);
+    pointer-events: none;
+}
+
+/* 첫 진입 인트로 영상 */
+
+.intro-video-screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    background: #000;
+    z-index: 20000;
+    overflow: hidden;
+}
+
+.intro-video-screen.hidden {
+    display: none;
+}
+
+.intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #000;
+}
+
+.intro-video-ui {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 1;
+    transition: opacity 0.22s ease;
+    pointer-events: none;
+}
+
+.intro-video-ui.hidden .intro-skip-btn,
+.intro-video-ui.hidden .intro-controls {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-skip-btn {
+    position: absolute;
+    top: 24px;
+    right: 20px;
+    min-width: 58px;
+    height: 32px;
+    padding: 0 15px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: rgba(45,45,45,0.34);
+    color: rgba(255,255,255,0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 5;
+}
+
+.intro-controls {
+    position: absolute;
+    left: 46px;
+    right: 46px;
+    bottom: calc(env(safe-area-inset-bottom) + 18px);
+    height: 46px;
+    border-radius: 999px;
+    background: rgba(35,35,35,0.32);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: grid;
+    grid-template-columns: 34px 1fr 34px;
+    align-items: center;
+    gap: 10px;
+    padding: 0 11px;
+    pointer-events: auto;
+    z-index: 5;
+}
+
+.intro-play-btn {
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 1px;
+}
+
+.intro-progress {
+    width: 100%;
+    height: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.38);
+    outline: none;
+    display: block;
+    cursor: pointer;
+}
+
+.intro-progress::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+.intro-progress::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    cursor: pointer;
+}
+
+.intro-mute-btn {
+    width: 34px;
+    height: 34px;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 27px 27px;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
+    overflow: hidden;
+}
+
+.intro-mute-btn.is-muted {
+    background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 27H23L39 13V51L23 37H12Z' fill='none' stroke='white' stroke-width='5.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M52 16L18 50' fill='none' stroke='white' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.intro-mute-btn:not(.is-muted) {
+    background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 27H23L39 13V51L23 37H12Z' fill='none' stroke='white' stroke-width='5.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M46 25C49 29 49 35 46 39' fill='none' stroke='white' stroke-width='5.5' stroke-linecap='round'/%3E%3Cpath d='M53 18C60 26 60 38 53 46' fill='none' stroke='white' stroke-width='5.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* 잠금화면 */
 
 .lock {
     z-index: 20;
@@ -79,250 +244,6 @@ body {
     transform: translateY(0) scale(1);
     pointer-events: auto;
 }
-
-.dim {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.18);
-    pointer-events: none;
-}
-
-/* 첫 진입 인트로 영상 */
-
-/* 첫 진입 인트로 영상 */
-
-.intro-video-screen {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100dvh;
-    background: #000;
-    z-index: 20000;
-    overflow: hidden;
-}
-
-.intro-video-screen.hidden {
-    display: none;
-}
-
-.intro-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    background: #000;
-}
-
-.intro-video-ui {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    opacity: 1;
-    transition: opacity 0.22s ease;
-    pointer-events: auto;
-}
-
-.intro-video-ui.hidden {
-    opacity: 0;
-}
-
-.intro-skip-btn {
-    position: absolute;
-    top: 24px;
-    right: 20px;
-    min-width: 58px;
-    height: 32px;
-    padding: 0 15px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.16);
-    background: rgba(45,45,45,0.34);
-    color: rgba(255,255,255,0.92);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 650;
-    cursor: pointer;
-    z-index: 5;
-}
-
-.intro-controls {
-    position: absolute;
-    left: 46px;
-    right: 46px;
-    bottom: 18px;
-    height: 46px;
-    border-radius: 999px;
-    background: rgba(35,35,35,0.32);
-    border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    display: grid;
-    grid-template-columns: 34px 1fr 34px;
-    align-items: center;
-    gap: 10px;
-    padding: 0 11px;
-    z-index: 5;
-}
-
-.intro-play-btn {
-    width: 34px;
-    height: 34px;
-    border: none;
-    background: transparent;
-    color: white;
-    font-family: inherit;
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0 1px;
-}
-
-.intro-progress {
-    width: 100%;
-    height: 4px;
-    appearance: none;
-    -webkit-appearance: none;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.38);
-    outline: none;
-    display: block;
-}
-
-.intro-progress::-webkit-slider-thumb {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-}
-
-.intro-progress::-moz-range-thumb {
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: white;
-    border: none;
-    cursor: pointer;
-}
-
-.intro-mute-btn {
-    width: 34px !important;
-    height: 34px !important;
-    border: none !important;
-    background-color: transparent !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: 27px 27px !important;
-    cursor: pointer !important;
-    padding: 0 !important;
-    font-size: 0 !important;
-    line-height: 0 !important;
-    color: transparent !important;
-    overflow: hidden !important;
-}
-
-.intro-mute-btn.is-muted {
-    background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 27H23L39 13V51L23 37H12Z' fill='none' stroke='white' stroke-width='5.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M52 16L18 50' fill='none' stroke='white' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
-}
-
-.intro-mute-btn:not(.is-muted) {
-    background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 27H23L39 13V51L23 37H12Z' fill='none' stroke='white' stroke-width='5.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M46 25C49 29 49 35 46 39' fill='none' stroke='white' stroke-width='5.5' stroke-linecap='round'/%3E%3Cpath d='M53 18C60 26 60 38 53 46' fill='none' stroke='white' stroke-width='5.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
-}
-
-@media (min-width: 520px) {
-    .intro-video-screen {
-        width: 430px;
-        height: 932px;
-        left: calc(50% - 215px);
-        top: 20px;
-        right: auto;
-        bottom: auto;
-        border-radius: 46px;
-        box-shadow: 0 0 0 10px #111, 0 30px 80px rgba(0,0,0,0.5);
-    }
-}
-
-/* 인트로 영상 음소거 버튼 최종 고정 */
-
-.intro-mute-btn {
-    width: 52px !important;
-    height: 52px !important;
-    border: none !important;
-    background-color: transparent !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: 36px 36px !important;
-    cursor: pointer !important;
-    padding: 0 !important;
-    font-size: 0 !important;
-    line-height: 0 !important;
-    color: transparent !important;
-}
-
-.intro-mute-btn * {
-    display: none !important;
-}
-
-.intro-mute-btn.is-muted {
-    background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 27H23L39 13V51L23 37H12Z' fill='none' stroke='white' stroke-width='5.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M52 16L18 50' fill='none' stroke='white' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
-}
-
-.intro-mute-btn:not(.is-muted) {
-    background-image: url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 27H23L39 13V51L23 37H12Z' fill='none' stroke='white' stroke-width='5.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M46 25C49 29 49 35 46 39' fill='none' stroke='white' stroke-width='5.5' stroke-linecap='round'/%3E%3Cpath d='M53 18C60 26 60 38 53 46' fill='none' stroke='white' stroke-width='5.5' stroke-linecap='round'/%3E%3C/svg%3E") !important;
-}
-
-.intro-progress {
-    width: 100%;
-    height: 5px;
-    appearance: none;
-    -webkit-appearance: none;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.38);
-    outline: none;
-}
-
-.intro-progress::-webkit-slider-thumb {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-}
-
-.intro-progress::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: white;
-    border: none;
-    cursor: pointer;
-}
-
-@media (min-width: 520px) {
-    .intro-video-screen {
-        width: 430px;
-        height: 932px;
-        left: calc(50% - 215px);
-        top: 20px;
-        right: auto;
-        bottom: auto;
-        border-radius: 46px;
-        box-shadow: 0 0 0 10px #111, 0 30px 80px rgba(0,0,0,0.5);
-    }
-}
-
-
-    
-/* 잠금화면 */
 
 .lock-content {
     position: relative;
@@ -437,7 +358,24 @@ body {
         filter 0.45s ease;
 }
 
+/* 홈화면 */
+
+.home-content {
+    position: relative;
+    z-index: 3;
+    padding: 64px 24px 122px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px 12px;
+}
+
 .icon {
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 7px rgba(0,0,0,0.55);
     opacity: 0;
     transform: translateY(28px) scale(0.96);
 }
@@ -457,47 +395,12 @@ body {
 .container.unlocked .icon:nth-child(6) {
     animation-delay: 0.30s;
 }
+
 @keyframes iconRise {
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-}
-
-.dock {
-    opacity: 0;
-    transform: translateY(26px) scale(0.98);
-}
-
-.container.unlocked .dock {
-    animation: dockRise 0.56s cubic-bezier(.19,1,.22,1) 0.26s forwards;
-}
-
-@keyframes dockRise {
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-    
-/* 홈화면 */
-
-.home-content {
-    position: relative;
-    z-index: 3;
-    padding: 64px 24px 122px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 26px 12px;
-}
-
-.icon {
-    text-align: center;
-    color: white;
-    text-shadow: 0 2px 7px rgba(0,0,0,0.55);
 }
 
 .label {
@@ -507,8 +410,6 @@ body {
     letter-spacing: -0.3px;
     white-space: nowrap;
 }
-
-/* 앱 아이콘 */
 
 .app {
     width: 64px;
@@ -546,8 +447,6 @@ body {
     pointer-events: none;
 }
 
-/* 독바 */
-
 .dock {
     position: absolute;
     left: 16px;
@@ -565,6 +464,19 @@ body {
     box-shadow:
         0 12px 35px rgba(0,0,0,0.18),
         inset 0 1px 1px rgba(255,255,255,0.35);
+    opacity: 0;
+    transform: translateY(26px) scale(0.98);
+}
+
+.container.unlocked .dock {
+    animation: dockRise 0.56s cubic-bezier(.19,1,.22,1) 0.26s forwards;
+}
+
+@keyframes dockRise {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .dock .app {
@@ -572,7 +484,7 @@ body {
     height: 62px;
 }
 
-/* 앱 실행 화면 */
+/* 앱 공통 */
 
 .app-window {
     position: fixed;
@@ -637,172 +549,89 @@ body {
     line-height: 1.65;
 }
 
-.map-main-button,
-.map-sub-button,
-.close-btn,
-.account-header,
-.copy-btn {
-    touch-action: manipulation;
+/* 우리 이야기 */
+
+.story-body {
+    background: #f6f0e6;
+    padding: 0;
 }
 
-.app-card {
-    background: white;
-    border-radius: 24px;
-    padding: 22px;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-    margin-bottom: 18px;
-}
-
-.app-card h3 {
-    margin: 0 0 10px;
-    font-size: 18px;
-    letter-spacing: -0.3px;
-}
-
-.app-card p {
-    margin: 0;
-    color: #444;
-}
-
-/* RSVP 앱 */
-
-.rsvp-intro {
+.story-invitation {
+    min-height: calc(100dvh - 74px);
+    padding: 58px 26px 72px;
     text-align: center;
-    margin-bottom: 24px;
+    background:
+        radial-gradient(circle at center, rgba(255,255,255,0.74) 0%, rgba(246,240,230,0.96) 58%, rgba(232,224,211,0.9) 100%);
+    color: #2d2925;
+    font-family: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", serif;
 }
 
-.rsvp-desc {
-    font-size: 15px;
-    line-height: 1.65;
-    color: #555;
-    letter-spacing: -0.25px;
+.story-symbol {
+    font-size: 17px;
+    color: #b88d68;
+    margin-bottom: 42px;
+    line-height: 1;
 }
 
-.rsvp-form-box {
-    width: 100%;
-    height: 1600px;
-    border-radius: 22px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+.story-paragraph {
+    font-size: 14.5px;
+    font-weight: 300;
+    line-height: 2.25;
+    letter-spacing: 1.8px;
+    color: #5c554e;
+    margin-bottom: 38px;
 }
 
-.rsvp-form-box iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
+.story-invite-text {
+    font-size: 15.5px;
+    font-weight: 300;
+    line-height: 2.1;
+    letter-spacing: 1.8px;
+    color: #4d463f;
+    margin-bottom: 58px;
 }
 
-/* 축의금 앱 */
-
-.money-intro {
-    text-align: center;
-    margin-bottom: 26px;
-}
-
-.money-title {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.7px;
-    color: #222;
-    margin-bottom: 16px;
-}
-
-.money-desc {
-    font-size: 15px;
-    line-height: 1.65;
-    color: #555;
-    letter-spacing: -0.25px;
-}
-
-.account-section {
-    background: rgba(255,255,255,0.86);
-    border: 1px solid rgba(120,90,60,0.18);
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-}
-
-.account-header {
-    width: 100%;
-    height: 56px;
-    border: none;
-    background: transparent;
-    padding: 0 20px;
+.story-family-list {
     display: flex;
+    flex-direction: column;
+    gap: 14px;
     align-items: center;
-    justify-content: space-between;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 600;
-    color: #222;
-    letter-spacing: -0.3px;
-    cursor: pointer;
+    font-size: 14px;
+    color: #3c3732;
+    letter-spacing: 1.1px;
+    font-weight: 300;
 }
 
-.account-header span:first-child {
+.story-family-row {
     display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.account-arrow {
-    font-size: 18px;
-    color: #555;
-    transition: transform 0.2s ease;
-}
-
-.account-section.active .account-arrow {
-    transform: rotate(180deg);
-}
-
-.account-list {
-    display: none;
-    padding: 0 20px 18px;
-}
-
-.account-section.active .account-list {
-    display: block;
-}
-
-.account-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    justify-content: center;
     gap: 12px;
-    align-items: center;
-    padding: 15px 0;
-    border-top: 1px solid rgba(0,0,0,0.07);
+    white-space: nowrap;
 }
 
-.account-role {
-    font-size: 13px;
-    color: #999;
-    margin-bottom: 4px;
-    letter-spacing: -0.2px;
+.story-family-row span {
+    color: #5d5750;
+    font-weight: 300;
 }
 
-.account-info {
-    font-size: 15px;
-    color: #333;
-    line-height: 1.45;
-    letter-spacing: -0.25px;
+.story-family-row strong {
+    font-size: 15.5px;
+    color: #2c2925;
+    font-weight: 400;
+    letter-spacing: 1.4px;
 }
 
-.copy-btn {
-    min-width: 54px;
-    height: 36px;
-    border-radius: 999px;
-    border: 1px solid rgba(160,110,80,0.32);
-    background: rgba(255,255,255,0.78);
-    color: #8b6b55;
-    font-size: 13px;
-    font-family: inherit;
-    cursor: pointer;
+.story-date-text {
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.9;
+    letter-spacing: 1.7px;
+    color: #3c362f;
+    margin: 46px 0 0;
 }
 
-/* 오시는 길 앱 */
+/* 오시는 길 */
 
 .map-image {
     width: 100%;
@@ -828,6 +657,13 @@ body {
     margin-bottom: 22px;
     padding-bottom: 18px;
     border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.place-mark {
+    color: #9b7a5e;
+    font-size: 18px;
+    margin-right: 4px;
+    vertical-align: 2px;
 }
 
 .info-row {
@@ -907,74 +743,6 @@ body {
     color: #191919;
 }
 
-.notice-text {
-    margin-top: 18px;
-    font-size: 13px;
-    color: #777;
-    line-height: 1.6;
-}
-.place-mark {
-    color: #9b7a5e;
-    font-size: 18px;
-    margin-right: 4px;
-    vertical-align: 2px;
-}
-
-.shuttle-section {
-    margin-top: 6px;
-    margin-bottom: 28px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(0,0,0,0.08);
-}
-
-.shuttle-title {
-    font-size: 17px;
-    font-weight: 750;
-    color: #222;
-    letter-spacing: -0.4px;
-    margin-bottom: 14px;
-}
-
-.shuttle-card {
-    background: rgba(255,255,255,0.72);
-    border: 1px solid rgba(120,90,60,0.14);
-    border-radius: 18px;
-    padding: 16px 17px;
-    margin-bottom: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
-}
-
-.shuttle-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #9b7a5e;
-    margin-bottom: 7px;
-}
-
-.shuttle-desc {
-    font-size: 15px;
-    line-height: 1.58;
-    color: #444;
-    letter-spacing: -0.25px;
-}
-
-.shuttle-place {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #222;
-    font-weight: 600;
-    letter-spacing: -0.25px;
-}
-
-.shuttle-note {
-    margin-top: 12px;
-    font-size: 12.5px;
-    line-height: 1.55;
-    color: #777;
-    letter-spacing: -0.2px;
-}
-/* 오시는 법 */
-
 .route-section {
     margin-top: 4px;
     margin-bottom: 28px;
@@ -1033,102 +801,62 @@ body {
     letter-spacing: -0.25px;
 }
 
-/* 우리 이야기 앱 */
-
-.story-body {
-    background: #f6f0e6;
-    padding: 0;
+.shuttle-section {
+    margin-top: 6px;
+    margin-bottom: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0,0,0,0.08);
 }
 
-.story-invitation {
-    min-height: calc(100dvh - 74px);
-    padding: 58px 26px 72px;
-    text-align: center;
-    background:
-        radial-gradient(circle at center, rgba(255,255,255,0.74) 0%, rgba(246,240,230,0.96) 58%, rgba(232,224,211,0.9) 100%);
-    color: #2d2925;
-    font-family: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", serif;
-}
-
-.story-symbol {
+.shuttle-title {
     font-size: 17px;
-    color: #b88d68;
-    margin-bottom: 42px;
-    line-height: 1;
-    font-family: "Noto Serif KR", "Nanum Myeongjo", serif;
+    font-weight: 750;
+    color: #222;
+    letter-spacing: -0.4px;
+    margin-bottom: 14px;
 }
 
-.story-main-title {
-    font-size: 22px;
-    font-weight: 400;
-    letter-spacing: 5px;
-    line-height: 1.85;
-    color: #2b2926;
-    margin-bottom: 40px;
+.shuttle-card {
+    background: rgba(255,255,255,0.72);
+    border: 1px solid rgba(120,90,60,0.14);
+    border-radius: 18px;
+    padding: 16px 17px;
+    margin-bottom: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
 }
 
-.story-paragraph {
-    font-size: 14.5px;
-    font-weight: 300;
-    line-height: 2.25;
-    letter-spacing: 1.8px;
-    color: #5c554e;
-    margin-bottom: 38px;
+.shuttle-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #9b7a5e;
+    margin-bottom: 7px;
 }
 
-.story-date-text {
-    font-size: 14.5px;
-    font-weight: 400;
-    line-height: 1.9;
-    letter-spacing: 1.7px;
-    color: #3c362f;
-    margin: 46px 0 0;
+.shuttle-desc {
+    font-size: 15px;
+    line-height: 1.58;
+    color: #444;
+    letter-spacing: -0.25px;
 }
 
-.story-invite-text {
-    font-size: 15.5px;
-    font-weight: 300;
-    line-height: 2.1;
-    letter-spacing: 1.8px;
-    color: #4d463f;
-    margin-bottom: 58px;
-}
-
-.story-family-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: center;
+.shuttle-place {
+    margin-top: 10px;
     font-size: 14px;
-    color: #3c3732;
-    letter-spacing: 1.1px;
-    font-weight: 300;
+    color: #222;
+    font-weight: 600;
+    letter-spacing: -0.25px;
 }
 
-.story-family-row {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 12px;
-    white-space: nowrap;
+.shuttle-note,
+.notice-text {
+    margin-top: 12px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: #777;
+    letter-spacing: -0.2px;
 }
 
-.story-family-row span {
-    color: #5d5750;
-    font-weight: 300;
-}
-
-.story-family-row strong {
-    font-size: 15.5px;
-    color: #2c2925;
-    font-weight: 400;
-    letter-spacing: 1.4px;
-}
-
-    
-/* 갤러리 앱 */
-
-/* 아이폰 사진 앱 스타일 갤러리 */
+/* 갤러리 */
 
 .gallery-window {
     background: #000;
@@ -1295,7 +1023,145 @@ body {
     box-shadow: 0 0 0 2px white;
 }
 
-/* 방명록 앱 */
+/* RSVP */
+
+.rsvp-intro {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.rsvp-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #555;
+    letter-spacing: -0.25px;
+}
+
+.rsvp-form-box {
+    width: 100%;
+    height: 1600px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+}
+
+.rsvp-form-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* 축의금 */
+
+.money-intro {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.money-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    color: #222;
+    margin-bottom: 16px;
+}
+
+.money-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #555;
+    letter-spacing: -0.25px;
+}
+
+.account-section {
+    background: rgba(255,255,255,0.86);
+    border: 1px solid rgba(120,90,60,0.18);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.account-header {
+    width: 100%;
+    height: 56px;
+    border: none;
+    background: transparent;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    letter-spacing: -0.3px;
+    cursor: pointer;
+}
+
+.account-header span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.account-arrow {
+    font-size: 18px;
+    color: #555;
+    transition: transform 0.2s ease;
+}
+
+.account-section.active .account-arrow {
+    transform: rotate(180deg);
+}
+
+.account-list {
+    display: none;
+    padding: 0 20px 18px;
+}
+
+.account-section.active .account-list {
+    display: block;
+}
+
+.account-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+.account-role {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+}
+
+.account-info {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.45;
+    letter-spacing: -0.25px;
+}
+
+.copy-btn {
+    min-width: 54px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(160,110,80,0.32);
+    background: rgba(255,255,255,0.78);
+    color: #8b6b55;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* 방명록 */
 
 .guestbook-intro {
     text-align: center;
@@ -1387,7 +1253,7 @@ body {
     font-size: 14px;
     color: #777;
 }
-    
+
 /* 데스크톱 미리보기 */
 
 @media (min-width: 520px) {
@@ -1396,7 +1262,7 @@ body {
         height: 932px;
         margin: 20px auto;
         border-radius: 46px;
-        overflow-y: auto;
+        overflow: hidden;
         box-shadow: 0 0 0 10px #111, 0 30px 80px rgba(0,0,0,0.5);
     }
 
@@ -1405,6 +1271,7 @@ body {
         min-height: 932px;
     }
 
+    .intro-video-screen,
     .app-window {
         width: 430px;
         height: 932px;
@@ -1413,6 +1280,7 @@ body {
         right: auto;
         bottom: auto;
         border-radius: 46px;
+        box-shadow: 0 0 0 10px #111, 0 30px 80px rgba(0,0,0,0.5);
     }
 
     .app-window.active {
@@ -1420,7 +1288,6 @@ body {
     }
 }
 </style>
-
 </head>
 
 <body>
@@ -1434,18 +1301,14 @@ body {
         autoplay
         muted
         playsinline
-        preload="metadata"
-        onended="closeIntroVideo()">
+        preload="metadata">
     </video>
 
     <div class="intro-video-ui" id="introVideoUi">
-
-        <button class="intro-skip-btn" id="introSkipBtn" type="button" onclick="closeIntroVideo(event)">
-            Skip
-        </button>
+        <button class="intro-skip-btn" id="introSkipBtn" type="button">Skip</button>
 
         <div class="intro-controls" id="introControls">
-            <button class="intro-play-btn" id="introPlayBtn" type="button" onclick="toggleIntroPlay(event)">Ⅱ</button>
+            <button class="intro-play-btn" id="introPlayBtn" type="button">Ⅱ</button>
 
             <input
                 class="intro-progress"
@@ -1454,123 +1317,115 @@ body {
                 min="0"
                 max="100"
                 value="0"
-                step="0.1"
-                oninput="seekIntroVideo(this)"
-                onchange="seekIntroVideo(this)">
+                step="0.1">
 
-            <button class="intro-mute-btn is-muted" id="introMuteBtn" type="button" onclick="toggleIntroMute(event)" aria-label="음소거"></button>
+            <button class="intro-mute-btn is-muted" id="introMuteBtn" type="button" aria-label="음소거"></button>
         </div>
-
     </div>
 </div>
 
 <div class="container" id="phoneFrame">
 
-<!-- 잠금화면 -->
-<section class="screen lock">
-    <div class="dim"></div>
+    <!-- 잠금화면 -->
+    <section class="screen lock">
+        <div class="dim"></div>
 
-    <div class="lock-content">
-        <div class="lock-date" id="lockDate">6월 10일 수요일</div>
-        <div class="lock-time" id="lockTime">12:00</div>
-        <div class="lock-title">JIEUN & HYUNSEO</div>
-        <div class="lock-subtitle">Wedding Invitation</div>
-    </div>
-
-    <div class="lock-bottom">
-        <div class="quick-buttons">
-
-            <div class="quick-btn">
-                <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <path d="M22 7h20c2.2 0 4 1.8 4 4v7c0 1.3-.7 2.6-1.8 3.3L40 24.2V54c0 3.3-2.7 6-6 6h-4c-3.3 0-6-2.7-6-6V24.2l-4.2-2.9C18.7 20.6 18 19.3 18 18v-7c0-2.2 1.8-4 4-4zm0 5v4h20v-4H22zm8 17v25c0 1.1.9 2 2 2s2-.9 2-2V29h-4z"/>
-                    <circle cx="32" cy="42" r="3"/>
-                </svg>
-            </div>
-
-            <div class="quick-btn">
-                <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <path d="M21 18l4-6h14l4 6h7c4.4 0 8 3.6 8 8v22c0 4.4-3.6 8-8 8H14c-4.4 0-8-3.6-8-8V26c0-4.4 3.6-8 8-8h7zm11 31c7.2 0 13-5.8 13-13s-5.8-13-13-13-13 5.8-13 13 5.8 13 13 13zm0-5c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm17-17c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3z"/>
-                </svg>
-            </div>
-
+        <div class="lock-content">
+            <div class="lock-date" id="lockDate">6월 10일 수요일</div>
+            <div class="lock-time" id="lockTime">12:00</div>
+            <div class="lock-title">JIEUN & HYUNSEO</div>
+            <div class="lock-subtitle">Wedding Invitation</div>
         </div>
 
-        <div class="swipe-text">위로 밀어 청첩장 열기</div>
-        <div class="home-indicator"></div>
-    </div>
-</section>
-
-<!-- 홈화면 -->
-<section class="screen home">
-    <div class="dim"></div>
-
-    <div class="home-content">
-        <div class="grid">
-
-            <div class="icon">
-                <div class="app" onclick="openApp('storyApp')">
-                    <img src="icon-story.png" alt="우리 이야기">
+        <div class="lock-bottom">
+            <div class="quick-buttons">
+                <div class="quick-btn">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path d="M22 7h20c2.2 0 4 1.8 4 4v7c0 1.3-.7 2.6-1.8 3.3L40 24.2V54c0 3.3-2.7 6-6 6h-4c-3.3 0-6-2.7-6-6V24.2l-4.2-2.9C18.7 20.6 18 19.3 18 18v-7c0-2.2 1.8-4 4-4zm0 5v4h20v-4H22zm8 17v25c0 1.1.9 2 2 2s2-.9 2-2V29h-4z"/>
+                        <circle cx="32" cy="42" r="3"/>
+                    </svg>
                 </div>
-                <div class="label">우리 이야기</div>
+
+                <div class="quick-btn">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path d="M21 18l4-6h14l4 6h7c4.4 0 8 3.6 8 8v22c0 4.4-3.6 8-8 8H14c-4.4 0-8-3.6-8-8V26c0-4.4 3.6-8 8-8h7zm11 31c7.2 0 13-5.8 13-13s-5.8-13-13-13-13 5.8-13 13 5.8 13 13 13zm0-5c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm17-17c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3z"/>
+                    </svg>
+                </div>
             </div>
 
-            <div class="icon">
-                <div class="app" onclick="openApp('mapApp')">
-                    <img src="icon-map.png" alt="오시는 길">
-                </div>
-                <div class="label">오시는 길</div>
-            </div>
-
-            <div class="icon">
-                <div class="app" onclick="openApp('galleryApp')">
-                    <img src="icon-gallery.png" alt="갤러리">
-                </div>
-                <div class="label">갤러리</div>
-            </div>
-
-            <div class="icon">
-                <div class="app" onclick="openApp('rsvpApp')">
-                    <img src="icon-rsvp.png" alt="참석 여부">
-                </div>
-                <div class="label">참석 여부</div>
-            </div>
-
-            <div class="icon">
-                <div class="app" onclick="openApp('moneyApp')">
-                    <img src="icon-money.png" alt="축의금">
-                </div>
-                <div class="label">축의금</div>
-            </div>
-
-            <div class="icon">
-                <div class="app" onclick="openApp('guestbookApp')">
-                    <img src="icon-guestbook.png" alt="방명록">
-                </div>
-                <div class="label">방명록</div>
-            </div>
-
+            <div class="swipe-text">위로 밀어 청첩장 열기</div>
+            <div class="home-indicator"></div>
         </div>
-    </div>
+    </section>
 
-    <div class="dock">
-        <div class="app" onclick="openApp('storyApp')">
-            <img src="icon-story.png" alt="우리 이야기">
+    <!-- 홈화면 -->
+    <section class="screen home">
+        <div class="dim"></div>
+
+        <div class="home-content">
+            <div class="grid">
+                <div class="icon">
+                    <div class="app" onclick="openApp('storyApp')">
+                        <img src="icon-story.png" alt="우리 이야기">
+                    </div>
+                    <div class="label">우리 이야기</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app" onclick="openApp('mapApp')">
+                        <img src="icon-map.png" alt="오시는 길">
+                    </div>
+                    <div class="label">오시는 길</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app" onclick="openApp('galleryApp')">
+                        <img src="icon-gallery.png" alt="갤러리">
+                    </div>
+                    <div class="label">갤러리</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app" onclick="openApp('rsvpApp')">
+                        <img src="icon-rsvp.png" alt="참석 여부">
+                    </div>
+                    <div class="label">참석 여부</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app" onclick="openApp('moneyApp')">
+                        <img src="icon-money.png" alt="축의금">
+                    </div>
+                    <div class="label">축의금</div>
+                </div>
+
+                <div class="icon">
+                    <div class="app" onclick="openApp('guestbookApp')">
+                        <img src="icon-guestbook.png" alt="방명록">
+                    </div>
+                    <div class="label">방명록</div>
+                </div>
+            </div>
         </div>
 
-        <div class="app" onclick="openApp('mapApp')">
-            <img src="icon-map.png" alt="오시는 길">
-        </div>
+        <div class="dock">
+            <div class="app" onclick="openApp('storyApp')">
+                <img src="icon-story.png" alt="우리 이야기">
+            </div>
 
-        <div class="app" onclick="openApp('galleryApp')">
-            <img src="icon-gallery.png" alt="갤러리">
-        </div>
+            <div class="app" onclick="openApp('mapApp')">
+                <img src="icon-map.png" alt="오시는 길">
+            </div>
 
-        <div class="app" onclick="openApp('rsvpApp')">
-            <img src="icon-rsvp.png" alt="참석 여부">
-        </div>
-    </div>
+            <div class="app" onclick="openApp('galleryApp')">
+                <img src="icon-gallery.png" alt="갤러리">
+            </div>
 
-</section>
+            <div class="app" onclick="openApp('rsvpApp')">
+                <img src="icon-rsvp.png" alt="참석 여부">
+            </div>
+        </div>
+    </section>
 
 </div>
 
@@ -1582,9 +1437,7 @@ body {
     </div>
 
     <div class="app-body story-body">
-
         <div class="story-invitation">
-
             <div class="story-symbol">☾</div>
 
             <div class="story-paragraph">
@@ -1618,133 +1471,129 @@ body {
                 2026. 9. 19 (토) 11:30<br>
                 세인트메리스 강남
             </div>
-
         </div>
-
     </div>
 </div>
-    
-<!-- 오시는 길 -->
 
+<!-- 오시는 길 -->
 <div class="app-window" id="mapApp">
     <div class="app-header">
         <h2>오시는 길</h2>
         <button class="close-btn" onclick="closeApp('mapApp')">×</button>
     </div>
 
-<div class="app-body">
+    <div class="app-body">
+        <div class="map-image">
+            <img src="venuemap.png" alt="세인트메리스 강남 약도">
+        </div>
 
-<div class="map-image">
-    <img src="venuemap.png" alt="세인트메리스 강남 약도">
-</div>
+        <div class="place-title"><span class="place-mark">✦</span> 세인트메리스 강남</div>
 
-<div class="place-title"><span class="place-mark">✦</span> 세인트메리스 강남</div>
+        <div class="info-row">
+            <div class="info-label">주소</div>
+            <div class="info-value">
+                서울 서초구 남부순환로289길 5<br>
+                삼영빌딩 5층
+            </div>
+        </div>
 
-<div class="info-row">
-    <div class="info-label">주소</div>
-    <div class="info-value">
-        서울 서초구 남부순환로289길 5<br>
-        삼영빌딩 5층
-    </div>
-</div>
+        <div class="info-row">
+            <div class="info-label">날짜</div>
+            <div class="info-value">2026년 9월 19일</div>
+        </div>
 
-<div class="info-row">
-    <div class="info-label">날짜</div>
-    <div class="info-value">2026년 9월 19일</div>
-</div>
+        <div class="info-row">
+            <div class="info-label">시간</div>
+            <div class="info-value">오전 11:30</div>
+        </div>
 
-<div class="info-row">
-    <div class="info-label">시간</div>
-    <div class="info-value">오전 11:30</div>
-</div>
+        <a class="map-main-button" href="https://naver.me/xyT3LlGh" target="_blank">
+            길 찾기
+        </a>
 
-<a class="map-main-button" href="https://naver.me/xyT3LlGh" target="_blank">
-    길 찾기
-</a>
+        <div class="map-buttons">
+            <a class="map-sub-button" href="https://naver.me/xyT3LlGh" target="_blank">
+                <div class="emoji naver-icon">N</div>
+                <div>NAVER MAP</div>
+            </a>
 
-<div class="map-buttons">
-    <a class="map-sub-button" href="https://naver.me/xyT3LlGh" target="_blank">
-        <div class="emoji naver-icon">N</div>
-        <div>NAVER MAP</div>
-    </a>
+            <a class="map-sub-button" href="https://place.map.kakao.com/59391633" target="_blank">
+                <div class="emoji kakao-icon">K</div>
+                <div>KAKAO MAP</div>
+            </a>
+        </div>
 
-    <a class="map-sub-button" href="https://place.map.kakao.com/59391633" target="_blank">
-        <div class="emoji kakao-icon">K</div>
-        <div>KAKAO MAP</div>
-    </a>
-</div>
+        <div class="route-section">
+            <div class="route-title">오시는 법</div>
 
-<div class="route-section">
-    <div class="route-title">오시는 법</div>
+            <div class="route-list">
+                <div class="route-item">
+                    <div class="route-icon">🚶</div>
+                    <div class="route-content">
+                        <div class="route-label">도보</div>
+                        <div class="route-desc">
+                            사당역 14번 출구로 나오신 뒤, 남부순환로를 따라 직진하시면 약 9분 정도 소요됩니다.
+                        </div>
+                    </div>
+                </div>
 
-    <div class="route-list">
+                <div class="route-item">
+                    <div class="route-icon">🚌</div>
+                    <div class="route-content">
+                        <div class="route-label">대중교통</div>
+                        <div class="route-desc">
+                            350, 461, 5413, 1500-2, 서초06, 서초15번 버스를 이용하신 뒤<br>
+                            대항병원 정류장에서 하차해주시면 바로 옆 건물입니다.
+                        </div>
+                    </div>
+                </div>
 
-        <div class="route-item">
-            <div class="route-icon">🚶</div>
-            <div class="route-content">
-                <div class="route-label">도보</div>
-                <div class="route-desc">
-                    사당역 14번 출구로 나오신 뒤, 남부순환로를 따라 직진하시면 약 9분 정도 소요됩니다.
+                <div class="route-item">
+                    <div class="route-icon">🚗</div>
+                    <div class="route-content">
+                        <div class="route-label">자동차</div>
+                        <div class="route-desc">
+                            예식장 앞 주차장에서 발렛파킹이 진행될 예정입니다.<br>
+                            시간이 다소 소요될 수 있으니 여유롭게 도착 부탁드립니다.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="route-item">
-            <div class="route-icon">🚌</div>
-            <div class="route-content">
-                <div class="route-label">대중교통</div>
-                <div class="route-desc">
-                    350, 461, 5413, 1500-2, 서초06, 서초15번 버스를 이용하신 뒤<br>
-                    대항병원 정류장에서 하차해주시면 바로 옆 건물입니다.
+        <div class="shuttle-section">
+            <div class="shuttle-title">셔틀버스 안내</div>
+
+            <div class="shuttle-card">
+                <div class="shuttle-label">예식 전</div>
+                <div class="shuttle-desc">
+                    예식 1시간 전부터 셔틀버스가 운행됩니다.<br>
+                    배차간격은 약 10분입니다.
                 </div>
+                <div class="shuttle-place">
+                    탑승 장소: 4호선 사당역 14번 출구
+                </div>
+            </div>
+
+            <div class="shuttle-card">
+                <div class="shuttle-label">예식 후</div>
+                <div class="shuttle-desc">
+                    예식 후에도 셔틀버스가 운행됩니다.
+                </div>
+                <div class="shuttle-place">
+                    탑승 장소: 하차 장소와 동일
+                </div>
+            </div>
+
+            <div class="shuttle-note">
+                셔틀버스는 교통 상황에 따라 출발 및 도착이 지연될 수 있습니다.
             </div>
         </div>
 
-        <div class="route-item">
-            <div class="route-icon">🚗</div>
-            <div class="route-content">
-                <div class="route-label">자동차</div>
-                <div class="route-desc">
-                    예식장 앞 주차장에서 발렛파킹이 진행될 예정입니다.<br>
-                    시간이 다소 소요될 수 있으니 여유롭게 도착 부탁드립니다.
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="shuttle-section">
-    <div class="shuttle-title">셔틀버스 안내</div>
-
-    <div class="shuttle-card">
-        <div class="shuttle-label">예식 전</div>
-        <div class="shuttle-desc">
-            예식 1시간 전부터 셔틀버스가 운행됩니다.<br>
-            배차간격은 약 10분입니다.
-        </div>
-        <div class="shuttle-place">
-            탑승 장소: 4호선 사당역 14번 출구
+        <div class="notice-text">
+            버튼을 누르면 지도 앱 또는 브라우저에서 위치를 확인하실 수 있습니다.
         </div>
     </div>
-
-    <div class="shuttle-card">
-        <div class="shuttle-label">예식 후</div>
-        <div class="shuttle-desc">
-            예식 후에도 셔틀버스가 운행됩니다.
-        </div>
-        <div class="shuttle-place">
-            탑승 장소: 하차 장소와 동일
-        </div>
-    </div>
-
-    <div class="shuttle-note">
-        셔틀버스는 교통 상황에 따라 출발 및 도착이 지연될 수 있습니다.
-    </div>
-</div>
-
-<div class="notice-text">
-    버튼을 누르면 지도 앱 또는 브라우저에서 위치를 확인하실 수 있습니다.
 </div>
 
 <!-- 갤러리 -->
@@ -1757,229 +1606,126 @@ body {
             <div class="iphone-gallery-subtitle" id="galleryCounter">1 / 30</div>
         </div>
 
-        <button class="iphone-gallery-more">•••</button>
+        <button class="iphone-gallery-more" type="button">•••</button>
     </div>
 
     <div class="iphone-gallery-viewer" id="galleryViewer">
         <img id="galleryMainImage" src="gallery/gallery1.jpg" alt="웨딩 갤러리 사진">
     </div>
 
-    <div class="iphone-gallery-thumbs" id="galleryThumbs">
-        <button class="iphone-thumb active" onclick="showGalleryImage(0)">
-            <img src="gallery/gallery1.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(1)">
-            <img src="gallery/gallery2.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(2)">
-            <img src="gallery/gallery3.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(3)">
-            <img src="gallery/gallery4.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(4)">
-            <img src="gallery/gallery5.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(5)">
-            <img src="gallery/gallery6.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(6)">
-            <img src="gallery/gallery7.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(7)">
-            <img src="gallery/gallery8.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(8)">
-            <img src="gallery/gallery9.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(9)">
-            <img src="gallery/gallery10.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(10)">
-            <img src="gallery/gallery11.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(11)">
-            <img src="gallery/gallery12.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(12)">
-            <img src="gallery/gallery13.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(13)">
-            <img src="gallery/gallery14.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(14)">
-            <img src="gallery/gallery15.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(15)">
-            <img src="gallery/gallery16.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(16)">
-            <img src="gallery/gallery17.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(17)">
-            <img src="gallery/gallery18.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(18)">
-            <img src="gallery/gallery19.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(19)">
-            <img src="gallery/gallery20.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(20)">
-            <img src="gallery/gallery21.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(21)">
-            <img src="gallery/gallery22.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(22)">
-            <img src="gallery/gallery23.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(23)">
-            <img src="gallery/gallery24.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(24)">
-            <img src="gallery/gallery25.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(25)">
-            <img src="gallery/gallery26.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(26)">
-            <img src="gallery/gallery27.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(27)">
-            <img src="gallery/gallery28.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(28)">
-            <img src="gallery/gallery29.jpg" alt="">
-        </button>
-        <button class="iphone-thumb" onclick="showGalleryImage(29)">
-            <img src="gallery/gallery30.jpg" alt="">
-        </button>
-    </div>
+    <div class="iphone-gallery-thumbs" id="galleryThumbs"></div>
 </div>
 
 <!-- 참석 여부 -->
-
 <div class="app-window" id="rsvpApp">
     <div class="app-header">
         <h2>참석 여부</h2>
         <button class="close-btn" onclick="closeApp('rsvpApp')">×</button>
     </div>
 
-<div class="app-body">
+    <div class="app-body">
+        <div class="rsvp-intro">
+            <div class="rsvp-desc">
+                소중한 걸음으로 함께해주실 분들을 위해<br>
+                참석 여부를 미리 전해주시면 감사하겠습니다.
+            </div>
+        </div>
 
-    <div class="rsvp-intro">
-        <div class="rsvp-desc">
-            소중한 걸음으로 함께해주실 분들을 위해<br>
-            참석 여부를 미리 전해주시면 감사하겠습니다.
+        <div class="rsvp-form-box">
+            <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSdtr9U-dqx_OBn7CqhUpIqxCQa9EWMmgqpdunT0p9du_yknOw/viewform?embedded=true"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                scrolling="no">
+                로드 중…
+            </iframe>
         </div>
     </div>
-
-    <div class="rsvp-form-box">
-        <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSdtr9U-dqx_OBn7CqhUpIqxCQa9EWMmgqpdunT0p9du_yknOw/viewform?embedded=true"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            scrolling="no">
-            로드 중…
-        </iframe>
-    </div>
-
-</div>
-
 </div>
 
 <!-- 축의금 -->
-
 <div class="app-window" id="moneyApp">
     <div class="app-header">
         <h2>축의금</h2>
         <button class="close-btn" onclick="closeApp('moneyApp')">×</button>
     </div>
 
-<div class="app-body">
+    <div class="app-body">
+        <div class="money-intro">
+            <div class="money-title">마음 전하실 곳</div>
+            <div class="money-desc">
+                축하의 마음을 담아<br>
+                축의금을 전해보세요.
+            </div>
+        </div>
 
-    <div class="money-intro">
-        <div class="money-title">마음 전하실 곳</div>
-        <div class="money-desc">
-            축하의 마음을 담아<br>
-            축의금을 전해보세요.
+        <div class="account-section">
+            <button class="account-header" onclick="toggleAccount(this)">
+                <span>♪ 신랑 측 계좌번호</span>
+                <span class="account-arrow">⌃</span>
+            </button>
+
+            <div class="account-list">
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">신랑</div>
+                        <div class="account-info">조현서 우리은행 1002-250-210423</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '1002-250-210423')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">아버지</div>
+                        <div class="account-info">조광재 우리은행 0000-000-000000</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '0000-000-000000')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">어머니</div>
+                        <div class="account-info">조지윤 우리은행 0000-000-000000</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '0000-000-000000')">복사</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="account-section">
+            <button class="account-header" onclick="toggleAccount(this)">
+                <span>♪ 신부 측 계좌번호</span>
+                <span class="account-arrow">⌃</span>
+            </button>
+
+            <div class="account-list">
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">신부</div>
+                        <div class="account-info">양지은 국민은행 578602-01-2535249</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '578602-01-2535249')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">아버지</div>
+                        <div class="account-info">양남열 국민은행 000000-00-0000000</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '000000-00-0000000')">복사</button>
+                </div>
+
+                <div class="account-item">
+                    <div>
+                        <div class="account-role">어머니</div>
+                        <div class="account-info">김혜경 국민은행 000000-00-0000000</div>
+                    </div>
+                    <button class="copy-btn" onclick="copyAccount(this, '000000-00-0000000')">복사</button>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="account-section">
-        <button class="account-header" onclick="toggleAccount(this)">
-            <span>♪ 신랑 측 계좌번호</span>
-            <span class="account-arrow">⌃</span>
-        </button>
-
-        <div class="account-list">
-
-            <div class="account-item">
-                <div>
-                    <div class="account-role">신랑</div>
-                    <div class="account-info">조현서 우리은행 1002-250-210423</div>
-                </div>
-                <button class="copy-btn" onclick="copyAccount(this, '1002-250-210423')">복사</button>
-            </div>
-
-            <div class="account-item">
-                <div>
-                    <div class="account-role">아버지</div>
-                    <div class="account-info">조광재 우리은행 0000-000-000000</div>
-                </div>
-                <button class="copy-btn" onclick="copyAccount(this, '0000-000-000000')">복사</button>
-            </div>
-
-            <div class="account-item">
-                <div>
-                    <div class="account-role">어머니</div>
-                    <div class="account-info">조지윤 우리은행 0000-000-000000</div>
-                </div>
-                <button class="copy-btn" onclick="copyAccount(this, '0000-000-000000')">복사</button>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="account-section">
-        <button class="account-header" onclick="toggleAccount(this)">
-            <span>♪ 신부 측 계좌번호</span>
-            <span class="account-arrow">⌃</span>
-        </button>
-
-        <div class="account-list">
-
-            <div class="account-item">
-                <div>
-                    <div class="account-role">신부</div>
-                    <div class="account-info">양지은 국민은행 578602-01-2535249</div>
-                </div>
-                <button class="copy-btn" onclick="copyAccount(this, '578602-01-2535249')">복사</button>
-            </div>
-
-            <div class="account-item">
-                <div>
-                    <div class="account-role">아버지</div>
-                    <div class="account-info">양남열 국민은행 000000-00-0000000</div>
-                </div>
-                <button class="copy-btn" onclick="copyAccount(this, '000000-00-0000000')">복사</button>
-            </div>
-
-            <div class="account-item">
-                <div>
-                    <div class="account-role">어머니</div>
-                    <div class="account-info">김혜경 국민은행 000000-00-0000000</div>
-                </div>
-                <button class="copy-btn" onclick="copyAccount(this, '000000-00-0000000')">복사</button>
-            </div>
-
-        </div>
-    </div>
-
-</div>
-
 </div>
 
 <!-- 방명록 -->
@@ -1990,7 +1736,6 @@ body {
     </div>
 
     <div class="app-body">
-
         <div class="guestbook-intro">
             <div class="guestbook-title">방명록</div>
             <div class="guestbook-desc">
@@ -2014,88 +1759,53 @@ body {
         <div class="guestbook-list" id="guestbookList">
             <div class="guestbook-loading">방명록을 불러오는 중입니다.</div>
         </div>
-
     </div>
 </div>
 
 <script>
 const GUESTBOOK_API_URL = 'https://script.google.com/macros/s/AKfycbxcYubIpyKppa1lG7WNlbD9L10o35Je_l0NII7rijbil5oWtxm-G_ce9MTAzCBCjuTZ/exec';
 
-function loadGuestbook() {
-    const list = document.getElementById('guestbookList');
+const galleryImages = Array.from({ length: 30 }, function(_, index) {
+    return 'gallery/gallery' + (index + 1) + '.jpg';
+});
 
-    if (!list) {
-        return;
-    }
-
-    list.innerHTML = '<div class="guestbook-loading">방명록을 불러오는 중입니다.</div>';
-
-    const oldScript = document.getElementById('guestbookJsonp');
-    if (oldScript) {
-        oldScript.remove();
-    }
-
-    window.renderGuestbook = function(items) {
-        if (!items || items.length === 0) {
-            list.innerHTML = '<div class="guestbook-empty">아직 남겨진 메시지가 없습니다.</div>';
-            return;
-        }
-
-        list.innerHTML = items.map(function(item) {
-            const name = escapeHtml(item.name || '익명');
-            const message = escapeHtml(item.message || '');
-
-            return `
-                <div class="guestbook-card">
-                    <div class="guestbook-name">${name}</div>
-                    <div class="guestbook-message">${message}</div>
-                </div>
-            `;
-        }).join('');
-    };
-
-    const script = document.createElement('script');
-    script.id = 'guestbookJsonp';
-    script.src = GUESTBOOK_API_URL + '?callback=renderGuestbook&v=' + Date.now();
-    document.body.appendChild(script);
-}
-
-function escapeHtml(text) {
-    return String(text)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-}
+let currentGalleryIndex = 0;
+let galleryScale = 1;
+let galleryStartDistance = 0;
+let galleryIsPinching = false;
+let galleryMoved = false;
+let galleryTouchStartX = 0;
+let galleryTouchStartY = 0;
 
 function updateTime() {
     const now = new Date();
-
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
-    const timeText = hours + ':' + minutes;
-
     const days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
-    const dateText = `${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}`;
 
-    document.getElementById('lockTime').textContent = timeText;
-    document.getElementById('lockDate').textContent = dateText;
+    const lockTime = document.getElementById('lockTime');
+    const lockDate = document.getElementById('lockDate');
+
+    if (lockTime) {
+        lockTime.textContent = hours + ':' + minutes;
+    }
+
+    if (lockDate) {
+        lockDate.textContent = `${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}`;
+    }
 }
-
-updateTime();
-setInterval(updateTime, 1000);
 
 function setupIntroVideo() {
     const introScreen = document.getElementById('introVideoScreen');
     const video = document.getElementById('introVideo');
     const ui = document.getElementById('introVideoUi');
+    const skipBtn = document.getElementById('introSkipBtn');
     const playBtn = document.getElementById('introPlayBtn');
     const muteBtn = document.getElementById('introMuteBtn');
     const progress = document.getElementById('introProgress');
     const phone = document.getElementById('phoneFrame');
 
-    if (!introScreen || !video || !ui || !progress) {
+    if (!introScreen || !video || !ui || !skipBtn || !playBtn || !muteBtn || !progress) {
         return;
     }
 
@@ -2105,37 +1815,88 @@ function setupIntroVideo() {
     }
 
     video.muted = true;
-    updateIntroMuteButton();
+    muteBtn.classList.add('is-muted');
 
-    video.play().catch(function() {
-        if (playBtn) {
-            playBtn.textContent = '▶';
+    function closeIntro() {
+        video.pause();
+        video.currentTime = 0;
+        introScreen.classList.add('hidden');
+
+        if (phone) {
+            phone.classList.remove('unlocked');
+            phone.classList.remove('unlocking');
         }
-    });
+    }
 
-    video.addEventListener('timeupdate', function() {
+    function updateProgress() {
         if (!video.duration) {
             return;
         }
 
         progress.value = (video.currentTime / video.duration) * 100;
+    }
+
+    skipBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeIntro();
     });
 
-    video.addEventListener('play', function() {
-        if (playBtn) {
-            playBtn.textContent = 'Ⅱ';
+    playBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
         }
+    });
+
+    muteBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        video.muted = !video.muted;
+        muteBtn.classList.toggle('is-muted', video.muted);
+        muteBtn.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
+
+        if (!video.paused) {
+            video.play().catch(function() {});
+        }
+    });
+
+    progress.addEventListener('input', function(event) {
+        event.stopPropagation();
+
+        if (!video.duration) {
+            return;
+        }
+
+        video.currentTime = (Number(progress.value) / 100) * video.duration;
+    });
+
+    progress.addEventListener('change', function(event) {
+        event.stopPropagation();
+
+        if (!video.duration) {
+            return;
+        }
+
+        video.currentTime = (Number(progress.value) / 100) * video.duration;
+    });
+
+    video.addEventListener('timeupdate', updateProgress);
+
+    video.addEventListener('play', function() {
+        playBtn.textContent = 'Ⅱ';
     });
 
     video.addEventListener('pause', function() {
-        if (playBtn) {
-            playBtn.textContent = '▶';
-        }
+        playBtn.textContent = '▶';
     });
 
-    video.addEventListener('ended', function() {
-        closeIntroVideo();
-    });
+    video.addEventListener('ended', closeIntro);
 
     introScreen.addEventListener('click', function(event) {
         const clickedControl = event.target.closest('.intro-skip-btn, .intro-controls');
@@ -2146,152 +1907,12 @@ function setupIntroVideo() {
 
         ui.classList.toggle('hidden');
     });
+
+    video.play().catch(function() {
+        playBtn.textContent = '▶';
+    });
 }
 
-function closeIntroVideo(event) {
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
-    const introScreen = document.getElementById('introVideoScreen');
-    const video = document.getElementById('introVideo');
-    const phone = document.getElementById('phoneFrame');
-
-    if (video) {
-        video.pause();
-        video.currentTime = 0;
-    }
-
-    if (introScreen) {
-        introScreen.classList.add('hidden');
-    }
-
-    if (phone) {
-        phone.classList.remove('unlocked');
-        phone.classList.remove('unlocking');
-    }
-}
-
-function toggleIntroPlay(event) {
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
-    const video = document.getElementById('introVideo');
-
-    if (!video) {
-        return;
-    }
-
-    if (video.paused) {
-        video.play();
-    } else {
-        video.pause();
-    }
-}
-
-function seekIntroVideo(input) {
-    const video = document.getElementById('introVideo');
-
-    if (!video || !video.duration) {
-        return;
-    }
-
-    video.currentTime = (Number(input.value) / 100) * video.duration;
-}
-
-function updateIntroMuteButton() {
-    const video = document.getElementById('introVideo');
-    const muteBtn = document.getElementById('introMuteBtn');
-
-    if (!video || !muteBtn) {
-        return;
-    }
-
-    muteBtn.classList.toggle('is-muted', video.muted);
-    muteBtn.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
-}
-
-function toggleIntroMute(event) {
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
-    const video = document.getElementById('introVideo');
-
-    if (!video) {
-        return;
-    }
-
-    video.muted = !video.muted;
-    updateIntroMuteButton();
-
-    if (!video.paused) {
-        video.play().catch(function() {});
-    }
-}
-
-setupIntroVideo();
-
-function closeIntroVideo() {
-    const introScreen = document.getElementById('introVideoScreen');
-    const video = document.getElementById('introVideo');
-    const phone = document.getElementById('phoneFrame');
-
-    if (video) {
-        video.pause();
-        video.currentTime = 0;
-    }
-
-    if (introScreen) {
-        introScreen.classList.add('hidden');
-    }
-
-    if (phone) {
-        phone.classList.remove('unlocked');
-        phone.classList.remove('unlocking');
-    }
-}
-
-function toggleIntroPlay() {
-    const video = document.getElementById('introVideo');
-
-    if (!video) {
-        return;
-    }
-
-    if (video.paused) {
-        video.play();
-    } else {
-        video.pause();
-    }
-}
-
-function toggleIntroMute() {
-    const video = document.getElementById('introVideo');
-    const muteBtn = document.getElementById('introMuteBtn');
-
-    if (!video) {
-        return;
-    }
-
-    video.muted = !video.muted;
-
-if (muteBtn) {
-    muteBtn.classList.toggle('is-muted', video.muted);
-    muteBtn.setAttribute('aria-label', video.muted ? '음소거 해제' : '음소거');
-}
-
-    if (!video.paused) {
-        video.play().catch(function() {});
-    }
-}
-
-setupIntroVideo();
-    
 function setupUnlockGesture() {
     const phone = document.getElementById('phoneFrame');
 
@@ -2346,7 +1967,7 @@ function setupUnlockGesture() {
                 unlockPhone();
             }
 
-            if (phone.classList.contains('unlocked') && diffY < -70 && startY < 130) {
+            if (phone.classList.contains('unlocked') && diffY < -70 && startY < 150) {
                 lockPhone();
             }
         }
@@ -2371,56 +1992,152 @@ function setupUnlockGesture() {
     });
 }
 
-setupUnlockGesture();
+function openApp(appId) {
+    const app = document.getElementById(appId);
 
-const galleryImages = [
-    'gallery/gallery1.jpg',
-    'gallery/gallery2.jpg',
-    'gallery/gallery3.jpg',
-    'gallery/gallery4.jpg',
-    'gallery/gallery5.jpg',
-    'gallery/gallery6.jpg',
-    'gallery/gallery7.jpg',
-    'gallery/gallery8.jpg',
-    'gallery/gallery9.jpg',
-    'gallery/gallery10.jpg',
-    'gallery/gallery11.jpg',
-    'gallery/gallery12.jpg',
-    'gallery/gallery13.jpg',
-    'gallery/gallery14.jpg',
-    'gallery/gallery15.jpg',
-    'gallery/gallery16.jpg',
-    'gallery/gallery17.jpg',
-    'gallery/gallery18.jpg',
-    'gallery/gallery19.jpg',
-    'gallery/gallery20.jpg',
-    'gallery/gallery21.jpg',
-    'gallery/gallery22.jpg',
-    'gallery/gallery23.jpg',
-    'gallery/gallery24.jpg',
-    'gallery/gallery25.jpg',
-    'gallery/gallery26.jpg',
-    'gallery/gallery27.jpg',
-    'gallery/gallery28.jpg',
-    'gallery/gallery29.jpg',
-    'gallery/gallery30.jpg'
-];
+    if (!app) {
+        return;
+    }
 
-let currentGalleryIndex = 0;
-let galleryTouchStartX = 0;
-let galleryTouchStartY = 0;
-let currentGalleryIndex = 0;
-let galleryTouchStartX = 0;
-let galleryTouchStartY = 0;
-let galleryScale = 1;
-let galleryStartDistance = 0;
-let galleryIsPinching = false;
-let galleryMoved = false;
+    app.classList.add('active');
+
+    requestAnimationFrame(function() {
+        app.scrollTop = 0;
+    });
+
+    if (appId === 'guestbookApp') {
+        loadGuestbook();
+    }
+
+    if (appId === 'galleryApp') {
+        const galleryApp = document.getElementById('galleryApp');
+        if (galleryApp) {
+            galleryApp.classList.remove('gallery-clean');
+        }
+        showGalleryImage(currentGalleryIndex);
+    }
+}
+
+function closeApp(appId) {
+    const app = document.getElementById(appId);
+
+    if (!app) {
+        return;
+    }
+
+    app.classList.remove('active');
+}
+
+function toggleAccount(button) {
+    const section = button.closest('.account-section');
+
+    if (!section) {
+        return;
+    }
+
+    section.classList.toggle('active');
+}
+
+function copyAccount(button, text) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function() {
+            showCopied(button);
+        }).catch(function() {
+            fallbackCopy(button, text);
+        });
+    } else {
+        fallbackCopy(button, text);
+    }
+}
+
+function fallbackCopy(button, text) {
+    const tempInput = document.createElement('input');
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    showCopied(button);
+}
+
+function showCopied(button) {
+    const originalText = button.textContent;
+    button.textContent = '완료';
+
+    setTimeout(function() {
+        button.textContent = originalText;
+    }, 1200);
+}
+
+function escapeHtml(text) {
+    return String(text)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+}
+
+function loadGuestbook() {
+    const list = document.getElementById('guestbookList');
+
+    if (!list) {
+        return;
+    }
+
+    list.innerHTML = '<div class="guestbook-loading">방명록을 불러오는 중입니다.</div>';
+
+    const oldScript = document.getElementById('guestbookJsonp');
+    if (oldScript) {
+        oldScript.remove();
+    }
+
+    window.renderGuestbook = function(items) {
+        if (!items || items.length === 0) {
+            list.innerHTML = '<div class="guestbook-empty">아직 남겨진 메시지가 없습니다.</div>';
+            return;
+        }
+
+        list.innerHTML = items.map(function(item) {
+            const name = escapeHtml(item.name || '익명');
+            const message = escapeHtml(item.message || '');
+
+            return `
+                <div class="guestbook-card">
+                    <div class="guestbook-name">${name}</div>
+                    <div class="guestbook-message">${message}</div>
+                </div>
+            `;
+        }).join('');
+    };
+
+    const script = document.createElement('script');
+    script.id = 'guestbookJsonp';
+    script.src = GUESTBOOK_API_URL + '?callback=renderGuestbook&v=' + Date.now();
+    document.body.appendChild(script);
+}
+
+function createGalleryThumbs() {
+    const thumbs = document.getElementById('galleryThumbs');
+
+    if (!thumbs) {
+        return;
+    }
+
+    thumbs.innerHTML = galleryImages.map(function(src, index) {
+        return `
+            <button class="iphone-thumb ${index === 0 ? 'active' : ''}" type="button" onclick="showGalleryImage(${index})">
+                <img src="${src}" alt="">
+            </button>
+        `;
+    }).join('');
+}
 
 function resetGalleryZoom() {
     galleryScale = 1;
 
     const mainImage = document.getElementById('galleryMainImage');
+
     if (mainImage) {
         mainImage.style.transform = 'scale(1)';
     }
@@ -2458,6 +2175,7 @@ function showGalleryImage(index) {
     });
 
     const activeThumb = thumbs[currentGalleryIndex];
+
     if (activeThumb) {
         activeThumb.scrollIntoView({
             behavior: 'smooth',
@@ -2542,7 +2260,7 @@ function setupGallerySwipe() {
             const diffX = galleryTouchStartX - touch.clientX;
             const diffY = Math.abs(galleryTouchStartY - touch.clientY);
 
-            if (Math.abs(diffX) > 16 && diffY < 80) {
+            if (Math.abs(diffX) > 14 && diffY < 88) {
                 galleryMoved = true;
             }
         }
@@ -2550,7 +2268,8 @@ function setupGallerySwipe() {
 
     viewer.addEventListener('touchend', function(event) {
         if (galleryIsPinching) {
-            galleryScale = Number((mainImage.style.transform.match(/scale\(([^)]+)\)/) || [1, 1])[1]);
+            const scaleMatch = mainImage.style.transform.match(/scale\(([^)]+)\)/);
+            galleryScale = scaleMatch ? Number(scaleMatch[1]) : 1;
 
             if (galleryScale < 1.08) {
                 resetGalleryZoom();
@@ -2568,7 +2287,7 @@ function setupGallerySwipe() {
         const diffX = galleryTouchStartX - touch.clientX;
         const diffY = Math.abs(galleryTouchStartY - touch.clientY);
 
-        if (galleryScale <= 1.03 && Math.abs(diffX) > 36 && diffY < 95) {
+        if (galleryScale <= 1.03 && Math.abs(diffX) > 34 && diffY < 100) {
             if (diffX > 0) {
                 nextGalleryImage();
             } else {
@@ -2580,81 +2299,13 @@ function setupGallerySwipe() {
     }, { passive: true });
 }
 
+updateTime();
+setInterval(updateTime, 1000);
+
+setupIntroVideo();
+setupUnlockGesture();
+createGalleryThumbs();
 setupGallerySwipe();
-    
-function openApp(appId) {
-    const app = document.getElementById(appId);
-
-    if (!app) {
-        return;
-    }
-
-    app.classList.add('active');
-
-    requestAnimationFrame(function() {
-        app.scrollTop = 0;
-    });
-
-    if (appId === 'guestbookApp') {
-        loadGuestbook();
-    }
-
-    if (appId === 'galleryApp') {
-    showGalleryImage(currentGalleryIndex);
-    }
-}
-
-function closeApp(appId) {
-    const app = document.getElementById(appId);
-
-    if (!app) {
-        return;
-    }
-
-    app.classList.remove('active');
-}
-
-function toggleAccount(button) {
-    const section = button.closest('.account-section');
-
-    if (!section) {
-        return;
-    }
-
-    section.classList.toggle('active');
-}
-
-function copyAccount(button, text) {
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(function() {
-            showCopied(button);
-        }).catch(function() {
-            fallbackCopy(button, text);
-        });
-    } else {
-        fallbackCopy(button, text);
-    }
-}
-
-function fallbackCopy(button, text) {
-    const tempInput = document.createElement('input');
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempInput);
-
-    showCopied(button);
-}
-
-function showCopied(button) {
-    const originalText = button.textContent;
-    button.textContent = '완료';
-
-    setTimeout(function() {
-        button.textContent = originalText;
-    }, 1200);
-}
 </script>
 
 </body>
