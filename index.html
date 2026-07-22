@@ -574,21 +574,22 @@ body {
 }
 
 .story-paragraph {
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 300;
-    line-height: 2.25;
-    letter-spacing: 1.8px;
+    line-height: 2.05;
+    letter-spacing: 1.2px;
     color: #5c554e;
-    margin-bottom: 38px;
+    margin-bottom: 28px;
 }
 
 .story-invite-text {
-    font-size: 15.5px;
+    font-size: 15px;
     font-weight: 300;
-    line-height: 2.1;
-    letter-spacing: 1.8px;
+    line-height: 2.05;
+    letter-spacing: 1.2px;
     color: #4d463f;
-    margin-bottom: 58px;
+    margin-top: 6px;
+    margin-bottom: 48px;
 }
 
 .story-family-list {
@@ -961,6 +962,7 @@ body {
     -webkit-user-drag: none;
     will-change: transform;
     transform-origin: center center;
+    transform: translate3d(0, 0, 0) scale(1);
     transition: opacity 0.16s ease;
 }
 
@@ -1438,7 +1440,67 @@ body {
 
     <div class="app-body story-body">
         <div class="story-invitation">
+
             <div class="story-symbol">☾</div>
+
+            <div class="story-paragraph">
+                그는 사람의 마음을 알아채는 데<br>
+                서툰 사람이었습니다.<br>
+                말은 언제나 지나치게 정확했고,<br>
+                관심은 대개 자기 앞에 놓인 일에만 머물렀습니다.
+            </div>
+
+            <div class="story-paragraph">
+                그녀는 달랐습니다.<br>
+                사람들의 말하지 않은 마음까지 먼저 헤아렸고,<br>
+                누구 하나 소외되지 않도록 살폈습니다.<br>
+                하지만 모두에게 다정한 만큼,<br>
+                작은 말과 표정에도 쉽게 상처받는 사람이었습니다.
+            </div>
+
+            <div class="story-paragraph">
+                여럿이 둘러앉은 자리에서 처음 마주한 날,<br>
+                그의 시선은 자꾸만<br>
+                맞은편에 앉은 그녀에게 머물렀습니다.
+            </div>
+
+            <div class="story-paragraph">
+                그녀는 사람들의 이야기에 귀를 기울였고,<br>
+                누구에게나 티 없는 미소를 건넸습니다.<br>
+                어떻게 저렇게 모든 사람에게 친절할 수 있는지,<br>
+                그는 처음으로 한 사람이 궁금해졌습니다.
+            </div>
+
+            <div class="story-paragraph">
+                그녀에게도 그는 처음 보는 종류의 사람이었습니다.<br>
+                남들이 자신을 어떻게 바라보는지 전혀 신경 쓰지 않았고,<br>
+                하고 싶은 말과 행동을 망설임 없이 이어갔습니다.
+            </div>
+
+            <div class="story-paragraph">
+                그런 그가 어느 날,<br>
+                처음으로 둘이 영화를 보러 가자고 했습니다.<br>
+                그런데 정작 영화를 보면서는<br>
+                태연하게 졸고 있었습니다.
+            </div>
+
+            <div class="story-paragraph">
+                그녀는 어이가 없으면서도 웃음이 났습니다.<br>
+                도무지 종잡을 수 없는 사람이었지만,<br>
+                이상하게 그를 만나면 자꾸 웃게 되었습니다.
+            </div>
+
+            <div class="story-paragraph">
+                그는 그녀를 통해<br>
+                미처 보지 못했던 마음을 배웠고,<br>
+                그녀는 그의 엉뚱함 뒤에 숨은<br>
+                변함없는 진심을 알아갔습니다.
+            </div>
+
+            <div class="story-paragraph">
+                그렇게 서로 너무 달랐던 두 사람은<br>
+                조금씩 서로에게 스며들었습니다.
+            </div>
 
             <div class="story-paragraph">
                 정해진 대본도,<br>
@@ -1452,7 +1514,7 @@ body {
             </div>
 
             <div class="story-invite-text">
-                오래 남을 마음을 약속하는 날<br>
+                오래 남을 마음을 약속하는 날,<br>
                 귀한 걸음 더하여 축복해주세요.
             </div>
 
@@ -1471,10 +1533,10 @@ body {
                 2026. 9. 19 (토) 11:30<br>
                 세인트메리스 강남
             </div>
+
         </div>
     </div>
 </div>
-
 <!-- 오시는 길 -->
 <div class="app-window" id="mapApp">
     <div class="app-header">
@@ -1770,12 +1832,23 @@ const galleryImages = Array.from({ length: 30 }, function(_, index) {
 });
 
 let currentGalleryIndex = 0;
+
 let galleryScale = 1;
-let galleryStartDistance = 0;
-let galleryIsPinching = false;
-let galleryMoved = false;
+let galleryTranslateX = 0;
+let galleryTranslateY = 0;
+
 let galleryTouchStartX = 0;
 let galleryTouchStartY = 0;
+
+let galleryPanStartX = 0;
+let galleryPanStartY = 0;
+let galleryStartTranslateX = 0;
+let galleryStartTranslateY = 0;
+
+let galleryStartDistance = 0;
+let galleryStartScale = 1;
+let galleryIsPinching = false;
+let galleryMoved = false;
 
 function updateTime() {
     const now = new Date();
@@ -2133,14 +2206,38 @@ function createGalleryThumbs() {
     }).join('');
 }
 
-function resetGalleryZoom() {
-    galleryScale = 1;
-
+function applyGalleryTransform() {
     const mainImage = document.getElementById('galleryMainImage');
 
-    if (mainImage) {
-        mainImage.style.transform = 'scale(1)';
+    if (!mainImage) {
+        return;
     }
+
+    mainImage.style.transform =
+        'translate3d(' + galleryTranslateX + 'px, ' + galleryTranslateY + 'px, 0) scale(' + galleryScale + ')';
+}
+
+function clampGalleryTranslate() {
+    const viewer = document.getElementById('galleryViewer');
+
+    if (!viewer || galleryScale <= 1) {
+        galleryTranslateX = 0;
+        galleryTranslateY = 0;
+        return;
+    }
+
+    const maxX = (viewer.clientWidth * (galleryScale - 1)) / 2;
+    const maxY = (viewer.clientHeight * (galleryScale - 1)) / 2;
+
+    galleryTranslateX = Math.max(-maxX, Math.min(maxX, galleryTranslateX));
+    galleryTranslateY = Math.max(-maxY, Math.min(maxY, galleryTranslateY));
+}
+
+function resetGalleryZoom() {
+    galleryScale = 1;
+    galleryTranslateX = 0;
+    galleryTranslateY = 0;
+    applyGalleryTransform();
 }
 
 function showGalleryImage(index) {
@@ -2206,9 +2303,8 @@ function getTouchDistance(touches) {
 function setupGallerySwipe() {
     const viewer = document.getElementById('galleryViewer');
     const galleryApp = document.getElementById('galleryApp');
-    const mainImage = document.getElementById('galleryMainImage');
 
-    if (!viewer || !galleryApp || !mainImage) {
+    if (!viewer || !galleryApp) {
         return;
     }
 
@@ -2227,13 +2323,21 @@ function setupGallerySwipe() {
         if (event.touches.length === 2) {
             galleryIsPinching = true;
             galleryStartDistance = getTouchDistance(event.touches);
+            galleryStartScale = galleryScale;
             return;
         }
 
         if (event.touches.length === 1) {
             const touch = event.touches[0];
+
             galleryTouchStartX = touch.clientX;
             galleryTouchStartY = touch.clientY;
+
+            galleryPanStartX = touch.clientX;
+            galleryPanStartY = touch.clientY;
+            galleryStartTranslateX = galleryTranslateX;
+            galleryStartTranslateY = galleryTranslateY;
+
             galleryIsPinching = false;
         }
     }, { passive: true });
@@ -2249,18 +2353,34 @@ function setupGallerySwipe() {
                 return;
             }
 
-            const nextScale = Math.min(3, Math.max(1, galleryScale * (distance / galleryStartDistance)));
-            mainImage.style.transform = 'scale(' + nextScale + ')';
+            galleryScale = Math.min(4, Math.max(1, galleryStartScale * (distance / galleryStartDistance)));
+
+            clampGalleryTranslate();
+            applyGalleryTransform();
+
             galleryMoved = true;
             return;
         }
 
-        if (event.touches.length === 1 && galleryScale <= 1.03) {
+        if (event.touches.length === 1) {
             const touch = event.touches[0];
-            const diffX = galleryTouchStartX - touch.clientX;
-            const diffY = Math.abs(galleryTouchStartY - touch.clientY);
+            const diffX = touch.clientX - galleryTouchStartX;
+            const diffY = touch.clientY - galleryTouchStartY;
 
-            if (Math.abs(diffX) > 14 && diffY < 88) {
+            if (galleryScale > 1.03) {
+                event.preventDefault();
+
+                galleryTranslateX = galleryStartTranslateX + (touch.clientX - galleryPanStartX);
+                galleryTranslateY = galleryStartTranslateY + (touch.clientY - galleryPanStartY);
+
+                clampGalleryTranslate();
+                applyGalleryTransform();
+
+                galleryMoved = true;
+                return;
+            }
+
+            if (Math.abs(diffX) > 14 && Math.abs(diffY) < 88) {
                 galleryMoved = true;
             }
         }
@@ -2268,11 +2388,11 @@ function setupGallerySwipe() {
 
     viewer.addEventListener('touchend', function(event) {
         if (galleryIsPinching) {
-            const scaleMatch = mainImage.style.transform.match(/scale\(([^)]+)\)/);
-            galleryScale = scaleMatch ? Number(scaleMatch[1]) : 1;
-
             if (galleryScale < 1.08) {
                 resetGalleryZoom();
+            } else {
+                clampGalleryTranslate();
+                applyGalleryTransform();
             }
 
             if (event.touches.length < 2) {
@@ -2283,11 +2403,15 @@ function setupGallerySwipe() {
             return;
         }
 
+        if (galleryScale > 1.03) {
+            return;
+        }
+
         const touch = event.changedTouches[0];
         const diffX = galleryTouchStartX - touch.clientX;
         const diffY = Math.abs(galleryTouchStartY - touch.clientY);
 
-        if (galleryScale <= 1.03 && Math.abs(diffX) > 34 && diffY < 100) {
+        if (Math.abs(diffX) > 34 && diffY < 100) {
             if (diffX > 0) {
                 nextGalleryImage();
             } else {
@@ -2298,7 +2422,6 @@ function setupGallerySwipe() {
         }
     }, { passive: true });
 }
-
 updateTime();
 setInterval(updateTime, 1000);
 
