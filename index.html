@@ -880,8 +880,9 @@ body {
     grid-template-columns: 46px 1fr 46px;
     align-items: center;
     background: linear-gradient(to bottom, rgba(0,0,0,0.58), rgba(0,0,0,0.18), rgba(0,0,0,0));
-    z-index: 20;
+    z-index: 30;
     opacity: 1;
+    pointer-events: auto;
     transition: opacity 0.18s ease;
 }
 
@@ -945,6 +946,7 @@ body {
 .iphone-gallery-viewer {
     position: absolute;
     inset: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -975,7 +977,7 @@ body {
     left: 0;
     right: 0;
     bottom: 22px;
-    z-index: 20;
+    z-index: 30;
     height: 64px;
     display: flex;
     align-items: center;
@@ -986,6 +988,7 @@ body {
     scrollbar-width: none;
     background: linear-gradient(to top, rgba(0,0,0,0.54), rgba(0,0,0,0));
     opacity: 1;
+    pointer-events: auto;
     transition: opacity 0.18s ease;
 }
 
@@ -994,6 +997,8 @@ body {
 }
 
 .iphone-thumb {
+    position: relative;
+    z-index: 31;
     width: 34px;
     height: 48px;
     flex: 0 0 auto;
@@ -1004,6 +1009,8 @@ body {
     background: rgba(255,255,255,0.15);
     opacity: 0.55;
     cursor: pointer;
+    pointer-events: auto;
+    touch-action: manipulation;
     transform: scale(0.94);
     transition:
         opacity 0.16s ease,
@@ -1024,7 +1031,7 @@ body {
     transform: scale(1.06);
     box-shadow: 0 0 0 2px white;
 }
-
+    
 /* RSVP */
 
 .rsvp-intro {
@@ -1852,7 +1859,7 @@ let galleryPinchContentY = 0;
 
 let galleryIsPinching = false;
 let galleryMoved = false;
-    
+
 function updateTime() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -2087,9 +2094,11 @@ function openApp(appId) {
 
     if (appId === 'galleryApp') {
         const galleryApp = document.getElementById('galleryApp');
+
         if (galleryApp) {
             galleryApp.classList.remove('gallery-clean');
         }
+
         showGalleryImage(currentGalleryIndex);
     }
 }
@@ -2164,6 +2173,7 @@ function loadGuestbook() {
     list.innerHTML = '<div class="guestbook-loading">방명록을 불러오는 중입니다.</div>';
 
     const oldScript = document.getElementById('guestbookJsonp');
+
     if (oldScript) {
         oldScript.remove();
     }
@@ -2202,11 +2212,106 @@ function createGalleryThumbs() {
 
     thumbs.innerHTML = galleryImages.map(function(src, index) {
         return `
-            <button class="iphone-thumb ${index === 0 ? 'active' : ''}" type="button" onclick="showGalleryImage(${index})">
+            <button
+                class="iphone-thumb ${index === 0 ? 'active' : ''}"
+                type="button"
+                data-gallery-index="${index}">
                 <img src="${src}" alt="">
             </button>
         `;
     }).join('');
+}
+
+function showGalleryImage(index) {
+    const nextIndex = Number(index);
+
+    if (
+        !Number.isInteger(nextIndex) ||
+        nextIndex < 0 ||
+        nextIndex >= galleryImages.length
+    ) {
+        return;
+    }
+
+    currentGalleryIndex = nextIndex;
+
+    galleryScale = 1;
+    galleryTranslateX = 0;
+    galleryTranslateY = 0;
+    galleryStartDistance = 0;
+    galleryStartScale = 1;
+    galleryPinchContentX = 0;
+    galleryPinchContentY = 0;
+    galleryIsPinching = false;
+    galleryMoved = false;
+
+    const mainImage = document.getElementById('galleryMainImage');
+    const counter = document.getElementById('galleryCounter');
+    const thumbs = document.querySelectorAll('.iphone-thumb');
+
+    if (!mainImage) {
+        return;
+    }
+
+    mainImage.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
+    mainImage.classList.add('changing');
+
+    const nextSrc = galleryImages[currentGalleryIndex];
+
+    function finishImageChange() {
+        requestAnimationFrame(function() {
+            mainImage.classList.remove('changing');
+        });
+    }
+
+    mainImage.onload = finishImageChange;
+    mainImage.src = nextSrc;
+
+    if (mainImage.complete) {
+        finishImageChange();
+    }
+
+    if (counter) {
+        counter.textContent =
+            (currentGalleryIndex + 1) +
+            ' / ' +
+            galleryImages.length;
+    }
+
+    thumbs.forEach(function(thumb, thumbIndex) {
+        thumb.classList.toggle(
+            'active',
+            thumbIndex === currentGalleryIndex
+        );
+    });
+
+    const activeThumb = thumbs[currentGalleryIndex];
+
+    if (activeThumb) {
+        activeThumb.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest'
+        });
+    }
+}
+
+function nextGalleryImage() {
+    const nextIndex =
+        currentGalleryIndex >= galleryImages.length - 1
+            ? 0
+            : currentGalleryIndex + 1;
+
+    showGalleryImage(nextIndex);
+}
+
+function prevGalleryImage() {
+    const prevIndex =
+        currentGalleryIndex <= 0
+            ? galleryImages.length - 1
+            : currentGalleryIndex - 1;
+
+    showGalleryImage(prevIndex);
 }
 
 function applyGalleryTransform() {
@@ -2265,17 +2370,14 @@ function clampGalleryTranslate() {
 
     const baseSize = getContainedImageSize(viewer, mainImage);
 
-    const scaledWidth = baseSize.width * galleryScale;
-    const scaledHeight = baseSize.height * galleryScale;
-
     const maxX = Math.max(
         0,
-        (scaledWidth - viewer.clientWidth) / 2
+        (baseSize.width * galleryScale - viewer.clientWidth) / 2
     );
 
     const maxY = Math.max(
         0,
-        (scaledHeight - viewer.clientHeight) / 2
+        (baseSize.height * galleryScale - viewer.clientHeight) / 2
     );
 
     galleryTranslateX = Math.max(
@@ -2293,6 +2395,11 @@ function resetGalleryZoom() {
     galleryScale = 1;
     galleryTranslateX = 0;
     galleryTranslateY = 0;
+    galleryStartDistance = 0;
+    galleryStartScale = 1;
+    galleryPinchContentX = 0;
+    galleryPinchContentY = 0;
+    galleryIsPinching = false;
 
     applyGalleryTransform();
 }
@@ -2310,13 +2417,34 @@ function getTouchMidpoint(touches) {
         y: (touches[0].clientY + touches[1].clientY) / 2
     };
 }
+
 function setupGallerySwipe() {
     const viewer = document.getElementById('galleryViewer');
     const galleryApp = document.getElementById('galleryApp');
     const mainImage = document.getElementById('galleryMainImage');
+    const thumbs = document.getElementById('galleryThumbs');
 
     if (!viewer || !galleryApp || !mainImage) {
         return;
+    }
+
+    if (thumbs) {
+        thumbs.addEventListener('click', function(event) {
+            const button = event.target.closest('.iphone-thumb');
+
+            if (!button) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const index = Number(button.dataset.galleryIndex);
+
+            if (Number.isInteger(index)) {
+                showGalleryImage(index);
+            }
+        });
     }
 
     viewer.addEventListener('click', function() {
@@ -2345,10 +2473,6 @@ function setupGallerySwipe() {
             galleryStartDistance = getTouchDistance(event.touches);
             galleryStartScale = galleryScale;
 
-            /*
-             * 손가락 가운데에 있던 사진의 지점이
-             * 확대 후에도 계속 같은 손가락 아래에 있도록 저장합니다.
-             */
             galleryPinchContentX =
                 (midpointX - galleryTranslateX) / galleryScale;
 
@@ -2401,10 +2525,6 @@ function setupGallerySwipe() {
             const midpointY =
                 midpoint.y - rect.top - rect.height / 2;
 
-            /*
-             * 현재 두 손가락의 중간 위치를 기준으로
-             * 사진의 이동값을 다시 계산합니다.
-             */
             galleryTranslateX =
                 midpointX -
                 galleryPinchContentX * galleryScale;
@@ -2420,55 +2540,46 @@ function setupGallerySwipe() {
             return;
         }
 
-        if (event.touches.length === 1) {
-            const touch = event.touches[0];
+        if (event.touches.length !== 1) {
+            return;
+        }
 
-            /*
-             * 확대된 상태에서는 다음 사진으로 넘기지 않고,
-             * 확대된 사진 안을 이동합니다.
-             */
-            if (galleryScale > 1.01) {
-                event.preventDefault();
+        const touch = event.touches[0];
 
-                galleryTranslateX =
-                    galleryStartTranslateX +
-                    touch.clientX -
-                    galleryPanStartX;
+        if (galleryScale > 1.02) {
+            event.preventDefault();
 
-                galleryTranslateY =
-                    galleryStartTranslateY +
-                    touch.clientY -
-                    galleryPanStartY;
+            galleryTranslateX =
+                galleryStartTranslateX +
+                touch.clientX -
+                galleryPanStartX;
 
-                clampGalleryTranslate();
-                applyGalleryTransform();
+            galleryTranslateY =
+                galleryStartTranslateY +
+                touch.clientY -
+                galleryPanStartY;
 
-                galleryMoved = true;
-                return;
-            }
+            clampGalleryTranslate();
+            applyGalleryTransform();
 
-            const diffX =
-                touch.clientX - galleryTouchStartX;
+            galleryMoved = true;
+            return;
+        }
 
-            const diffY =
-                touch.clientY - galleryTouchStartY;
+        const diffX = touch.clientX - galleryTouchStartX;
+        const diffY = touch.clientY - galleryTouchStartY;
 
-            if (
-                Math.abs(diffX) > 14 &&
-                Math.abs(diffY) < 90
-            ) {
-                galleryMoved = true;
-            }
+        if (
+            Math.abs(diffX) > 12 &&
+            Math.abs(diffX) > Math.abs(diffY)
+        ) {
+            galleryMoved = true;
         }
     }, {
         passive: false
     });
 
     viewer.addEventListener('touchend', function(event) {
-        /*
-         * 두 손가락 확대 후 한 손가락만 남으면
-         * 바로 그 손가락으로 사진을 이동할 수 있게 합니다.
-         */
         if (galleryIsPinching) {
             if (event.touches.length === 1) {
                 const touch = event.touches[0];
@@ -2489,7 +2600,7 @@ function setupGallerySwipe() {
                 galleryIsPinching = false;
                 galleryStartDistance = 0;
 
-                if (galleryScale < 1.03) {
+                if (galleryScale <= 1.08) {
                     resetGalleryZoom();
                 } else {
                     clampGalleryTranslate();
@@ -2500,11 +2611,7 @@ function setupGallerySwipe() {
             }
         }
 
-        /*
-         * 확대된 상태에서는 사진 이동만 허용하고
-         * 다음 사진으로 넘어가지 않습니다.
-         */
-        if (galleryScale > 1.01) {
+        if (galleryScale > 1.02) {
             return;
         }
 
@@ -2514,17 +2621,12 @@ function setupGallerySwipe() {
             return;
         }
 
-        const diffX =
-            galleryTouchStartX - touch.clientX;
-
-        const diffY =
-            Math.abs(
-                galleryTouchStartY - touch.clientY
-            );
+        const diffX = galleryTouchStartX - touch.clientX;
+        const diffY = Math.abs(galleryTouchStartY - touch.clientY);
 
         if (
-            Math.abs(diffX) > 34 &&
-            diffY < 100
+            Math.abs(diffX) > 30 &&
+            Math.abs(diffX) > diffY
         ) {
             if (diffX > 0) {
                 nextGalleryImage();
@@ -2539,13 +2641,19 @@ function setupGallerySwipe() {
     });
 
     viewer.addEventListener('touchcancel', function() {
-        galleryIsPinching = false;
-        galleryStartDistance = 0;
+        galleryMoved = false;
 
-        clampGalleryTranslate();
-        applyGalleryTransform();
+        if (galleryScale <= 1.08) {
+            resetGalleryZoom();
+        } else {
+            galleryIsPinching = false;
+            galleryStartDistance = 0;
+            clampGalleryTranslate();
+            applyGalleryTransform();
+        }
     });
 }
+
 updateTime();
 setInterval(updateTime, 1000);
 
@@ -2554,6 +2662,6 @@ setupUnlockGesture();
 createGalleryThumbs();
 setupGallerySwipe();
 </script>
-
+    
 </body>
 </html>
