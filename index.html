@@ -686,6 +686,12 @@ body {
     letter-spacing: -0.3px;
 }
 
+.address-single-line {
+    font-size: 16px;
+    letter-spacing: -0.6px;
+    white-space: nowrap;
+}
+
 .map-main-button {
     display: block;
     width: 100%;
@@ -1564,12 +1570,11 @@ body {
 
         <div class="info-row">
             <div class="info-label">주소</div>
-            <div class="info-value">
-                서울 서초구 남부순환로289길 5<br>
-                삼영빌딩 5층
+            <div class="info-value address-single-line">
+                서울 서초구 남부순환로289길 5 삼영빌딩 5층
             </div>
         </div>
-
+        
         <div class="info-row">
             <div class="info-label">날짜</div>
             <div class="info-value">2026년 9월 19일</div>
@@ -1580,6 +1585,10 @@ body {
             <div class="info-value">오전 11:30</div>
         </div>
 
+        <div class="map-main-button">
+        길 찾기
+        </div>
+        
         <div class="map-buttons">
             <a class="map-sub-button" href="https://naver.me/xyT3LlGh" target="_blank">
                 <div class="emoji naver-icon">N</div>
@@ -1612,7 +1621,7 @@ body {
                     <div class="route-content">
                         <div class="route-label">대중교통</div>
                         <div class="route-desc">
-                            350, 461, 5413, 1500-2, 서초06, 서초15번 버스를 이용하신 뒤<br>
+                            350, 461, 5413, 1500-2, 서초06, 서초15번 버스<br>
                             대항병원 정류장에서 하차하면 바로 옆 건물입니다.
                         </div>
                     </div>
