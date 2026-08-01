@@ -1864,8 +1864,15 @@ body {
 <script>
 const GUESTBOOK_API_URL = 'https://script.google.com/macros/s/AKfycbxcYubIpyKppa1lG7WNlbD9L10o35Je_l0NII7rijbil5oWtxm-G_ce9MTAzCBCjuTZ/exec';
 
+const hiddenGalleryNumbers = [26, 30];
+
 const galleryImages = Array.from({ length: 30 }, function(_, index) {
-    return 'gallery/gallery' + (index + 1) + '.jpg';
+    const imageNumber = index + 1;
+    return imageNumber;
+}).filter(function(imageNumber) {
+    return !hiddenGalleryNumbers.includes(imageNumber);
+}).map(function(imageNumber) {
+    return 'gallery/gallery' + imageNumber + '.jpg';
 });
 
 let currentGalleryIndex = 0;
