@@ -1874,6 +1874,10 @@ const galleryImages = Array.from({ length: 30 }, function(_, index) {
 }).filter(function(imageNumber) {
     return !hiddenGalleryNumbers.includes(imageNumber);
 }).map(function(imageNumber) {
+    if (imageNumber === 8) {
+        return 'gallery/gallery8.png';
+    }
+
     return 'gallery/gallery' + imageNumber + '.jpg';
 });
 
